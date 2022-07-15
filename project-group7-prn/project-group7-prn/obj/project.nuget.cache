@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "PSpX3o0vnzAXVdoobRssFTm7nawA/LhpZ7yStx+u1tGB3uA5t1opI37nc3NY/960oz8dIeYVvl3Q7aL65wgpIw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ASUS\\OneDrive\\Documents\\Computer\\project-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}
