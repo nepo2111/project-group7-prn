@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using project_group7_prn.Models;
 using project_group7_prn.Services;
 using project_group7_prn.DAO;
-
+using Microsoft.AspNetCore.Http;
 
 namespace project_group7_prn.Controllers
 {
@@ -23,12 +23,13 @@ namespace project_group7_prn.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(User user)
+        public IActionResult Register(User user, IFormCollection rs)
         {
             //Set inf for user customer
             user.Role = Security.ROLE_CUSTOMER;
             user.Active = true;
             user.Avatar = Security.AVATAR_DEFAULT;
+            user.Gender = bool.Parse(rs["rdGender"]);
 
             UserDAO userDAO = new UserDAO();
             userDAO.AddUser(user);

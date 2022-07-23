@@ -291,9 +291,6 @@ namespace project_group7_prn.Models
 
                 entity.Property(e => e.Gender).HasColumnName("gender");
 
-                entity.Property(e => e.Key)
-                    .HasMaxLength(50)
-                    .HasColumnName("key");
 
                 entity.Property(e => e.Password)
                     .IsRequired()

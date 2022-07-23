@@ -25,6 +25,7 @@ namespace project_group7_prn.DAO
             using (onlineShopSWPContext context = new onlineShopSWPContext())
             {
                 context.Users.Add(user);
+                context.SaveChanges();
             }
         }
     }

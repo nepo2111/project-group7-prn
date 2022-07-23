@@ -23,7 +23,6 @@ namespace project_group7_prn.Models
         public string Address { get; set; }
         public int? Role { get; set; }
         public bool? Active { get; set; }
-        public string Key { get; set; }
         public string Avatar { get; set; }
 
         public virtual ICollection<Cart> Carts { get; set; }
