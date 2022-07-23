@@ -1,4 +1,4 @@
-# Welcome to my Repository - Project Group 7 Prn211
+# Welcome to my Repository - Shopping Online
 
 ## You will find in this repo:
 
