@@ -1,0 +1,65 @@
+﻿@{ 
+    Layout = "_Layout";
+}
+@using project_group7_prn.Models;
+@model User
+
+
+    <div class=" container">
+       
+        <div class=" register">
+            @if (ViewBag.mess != null)
+            {
+                <div class="alert alert-success" role="alert" style="text-align:center">
+                    @ViewBag.mess
+                </div>
+            }
+            <h1>Register</h1>
+            <form asp-controller="User" asp-action="Register">
+                <div class="col-md-6 register-top-grid">
+                    <h3>Personal infomation</h3>
+                    <div>
+                        <span>Full Name</span>
+                        <input type="text" asp-for="Fullname" />
+                    </div>
+
+                    <div>
+                        <span>Gender</span>
+                        <div style="margin-top:15px; margin-bottom:15px;">
+                            <input type="radio" name="rdGender" asp-for="Gender" value="1"> Male
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="rdGender" asp-for="Gender" value="0"> Female
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <span>Email</span>
+                        <input type="text" asp-for="Email">
+                    </div>
+                    <div>
+                        <span>Phone</span>
+                        <input type="text" asp-for="Phone">
+                    </div>
+                    <div>
+                        <span>Address</span>
+                        <input type="text" asp-for="Address">
+                    </div>
+                </div>
+                <div class="col-md-6 register-bottom-grid">
+                    <h3>Login information</h3>
+                    <div>
+                        <span>Password</span>
+                        <input type="password">
+                    </div>
+                    <div>
+                        <span>Confirm Password</span>
+                        <input type="password" asp-for="Password">
+                    </div>
+                    <input type="submit" value="submit">
+
+                </div>
+                <div class="clearfix"> </div>
+            </form>
+        </div>
+    </div>

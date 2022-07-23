@@ -70,3 +70,8 @@ C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project
 C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\project-group7-prn.pdb
 C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\project-group7-prn.genruntimeconfig.cache
 C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\project-group7-prn.csproj.AssemblyReference.cache
+C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\User\Register.cshtml.g.cs
+C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
