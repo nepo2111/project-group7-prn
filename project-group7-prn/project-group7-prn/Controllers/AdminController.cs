@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using project_group7_prn.DAO;
+using project_group7_prn.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,31 @@ namespace project_group7_prn.Controllers
 
 
             return View();
+        }
+
+        public IActionResult EditUser(string email)
+        {
+            UserDAO uDao = new UserDAO();
+            User user = uDao.GetUserByEmail(email);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(IFormCollection result)
+        {
+            UserDAO uDao = new UserDAO();
+            
+
+            return View();
+        }
+
+        public void ChangeActiveUser(int uid, string status)
+        {
+            UserDAO uDao = new UserDAO();
+
+
+            
         }
 
         public IActionResult Orders()

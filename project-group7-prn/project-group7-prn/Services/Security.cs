@@ -14,7 +14,7 @@ namespace project_group7_prn.Services
         public static readonly int ROLE_ADMIN = 2;
 
         //Default avatar user
-        public static readonly string AVATAR_DEFAULT = "~/Individual/User/Images/default-user-icon-13.jpg";
+        public static readonly string AVATAR_DEFAULT = "default-user-icon-13.jpg";
 
 
        

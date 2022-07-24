@@ -45,7 +45,7 @@ namespace project_group7_prn.DAO
             List<User> users = null;
             using (onlineShopSWPContext context = new onlineShopSWPContext())
             {
-                context.Users
+                users = context.Users
                     .Include(x => x.Carts)
                     .Include(x => x.Feedbacks)
                     .Include(x => x.Orders)

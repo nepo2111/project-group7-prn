@@ -80,3 +80,4 @@ C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project
 C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Admin\UserList.cshtml.g.cs
 C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Admin\Orders.cshtml.g.cs
 C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Admin\Products.cshtml.g.cs
+C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Admin\EditUser.cshtml.g.cs

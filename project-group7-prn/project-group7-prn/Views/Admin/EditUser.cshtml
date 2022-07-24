@@ -1,0 +1,176 @@
+﻿@{
+    Layout = "_Layout-Admin";
+}
+@model User
+@using project_group7_prn.Models;
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="display:flex">
+        <h1 class="h3 mb-0 text-gray-800"><i class="fa fa-users" aria-hidden="true"></i> Edit Users</h1>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+
+        <div class="card-body">
+            <form asp-controller="Admin" asp-action="UpdateUser">
+                <input type="hidden" id="h-user-id" asp-for="@Model.UserId" value="@Model.UserId" data-action="@Model.Active" />
+                <div class="form-group">
+                    &nbsp;&nbsp;&nbsp;
+                    <button id="btn-status" data-id="" data-status="" type="button" class="btn @(Model.Active == true ? " btn-success" : "btn-danger") btn-id">
+                        @(Model.Active == true ? "Active" : "Inactive")
+                    </button>
+                    <input type="hidden" id="h-id-active" value="@Model.Active" />
+                </div>
+                <div class="form-group" style="text-align:center">
+
+                    <img src="~/Individual/User/Images/@Model.Avatar" style="width:200px; height:auto;" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="text" class="form-control" disabled asp-for="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Full Name</label>
+                    <input type="text" class="form-control" asp-for="Fullname" placeholder="Enter Full Name">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gender">Gender</label></br>
+                    <input type="radio" name="rdGender" @(Model.Gender == true ? "checked" : "") value="true"> Male
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="rdGender" @(Model.Gender == false ? "checked" : "") value="false"> Female
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Address</label>
+                    <input type="text" class="form-control" asp-for="Address" placeholder="Enter Address">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" class="form-control" asp-for="Password" id="exampleInputPassword1" placeholder="Confirm Password">
+                </div>
+
+
+                <button type="submit" class="btn btn-dark">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+            </div>
+<!-- End of Main Content -->
+        </div>
+<!-- End of Content Wrapper -->
+    </div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Active Modal-->
+<div class="modal fade" id="confirm-change-active" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Active</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="ct"></p>
+                <p>Do you want to proceed?</p>
+                <p class="debug-url"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btn-change">Change</a>
+            </div>
+            <input type="hidden" id="hUid" value="0" />
+            <input type="hidden" id="hStatus" value="" />
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btn-status').click(function () {
+        var uid = $('#h-user-id').val();
+        var status = $('#h-user-id').data('action');
+        if (status == 'True') {
+            $('#ct').html('This user account will not be active.');
+        } else {
+            $('#ct').html('This user account will be active.');
+        }
+        $('#hUid').val(uid);
+        $('#hStatus').val(status);
+        $('#confirm-change-active').modal({
+            backdrop: 'static',
+            keyboard: true,
+            show: true
+        }
+        );
+    });
+
+    $('.btn-change').click(function () {
+        var uid = $('#hUid').val();
+        var status = $('#hStatus').val();
+        $.ajax({
+            url: "/Admin/ChangeActiveUser",
+            type: "get", //send it through get method
+            data: {
+                uid: uid,
+                status: status
+            },
+            success: function (response) {
+                //Do Something
+                $('#confirm-show-slider').modal('toggle');
+                sessionStorage.setItem('save_order', true);
+                window.location.reload();
+
+
+            },
+            error: function (xhr) {
+
+            }
+        });
+    });
+
+
+    $(function () {
+        if (sessionStorage.getItem('save_order')) {
+            toastr.success("Status change successful!");
+            sessionStorage.removeItem('save_order');
+        }
+    }
+    );
+</script>
