@@ -157,7 +157,6 @@ namespace project_group7_prn.Models
                     .HasColumnType("date")
                     .HasColumnName("order_date");
 
-                entity.Property(e => e.PaymentId).HasColumnName("payment_id");
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
@@ -231,7 +230,6 @@ namespace project_group7_prn.Models
 
                 entity.Property(e => e.AuthorId).HasColumnName("author_id");
 
-                entity.Property(e => e.BrandId).HasColumnName("brand_id");
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
