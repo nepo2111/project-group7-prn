@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS\\OneDrive\\Documents\\Computer\\project-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj": {}
+    "C:\\Users\\FPTSHOP\\OneDrive\\Desktop\\PRN211_Project\\project-group7-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS\\OneDrive\\Documents\\Computer\\project-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj": {
+    "C:\\Users\\FPTSHOP\\OneDrive\\Desktop\\PRN211_Project\\project-group7-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\OneDrive\\Documents\\Computer\\project-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj",
+        "projectUniqueName": "C:\\Users\\FPTSHOP\\OneDrive\\Desktop\\PRN211_Project\\project-group7-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj",
         "projectName": "project-group7-prn",
-        "projectPath": "C:\\Users\\ASUS\\OneDrive\\Documents\\Computer\\project-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\OneDrive\\Documents\\Computer\\project-prn\\project-group7-prn\\project-group7-prn\\obj\\",
+        "projectPath": "C:\\Users\\FPTSHOP\\OneDrive\\Desktop\\PRN211_Project\\project-group7-prn\\project-group7-prn\\project-group7-prn\\project-group7-prn.csproj",
+        "packagesPath": "C:\\Users\\FPTSHOP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FPTSHOP\\OneDrive\\Desktop\\PRN211_Project\\project-group7-prn\\project-group7-prn\\project-group7-prn\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\FPTSHOP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,6 +57,10 @@
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "PagedList.Mvc": {
+              "target": "Package",
+              "version": "[4.5.0, )"
             }
           },
           "imports": [
@@ -73,12 +73,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.17, 5.0.17]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -87,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
         }
       }
     }

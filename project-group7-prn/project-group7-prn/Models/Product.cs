@@ -14,7 +14,6 @@ namespace project_group7_prn.Models
 
         public int ProductId { get; set; }
         public string Title { get; set; }
-        public int? BrandId { get; set; }
         public double Price { get; set; }
         public double? SalePrice { get; set; }
         public int? Stock { get; set; }
