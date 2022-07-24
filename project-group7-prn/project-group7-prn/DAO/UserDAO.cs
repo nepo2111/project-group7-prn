@@ -28,5 +28,15 @@ namespace project_group7_prn.DAO
                 context.SaveChanges();
             }
         }
+
+        public void UpdateUser(User user)
+        {
+            if (user == null) return;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                context.Users.Update(user);
+                context.SaveChanges();
+            }
+        }
     }
 }
