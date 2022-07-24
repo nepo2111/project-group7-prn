@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using project_group7_prn.DAO;
 using project_group7_prn.Models;
 using project_group7_prn.Services;
@@ -14,7 +15,28 @@ namespace project_group7_prn.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            using (var db = new onlineShopSWPContext())
+            {
+                ViewBag.Product = db.Products.Include(p => p.Category).ToList().OrderByDescending(p => p.CreateDate).Take(6);
+
+                var query = (from qa in db.Products
+                             let tongSl = (from cthd in db.OrderDetails
+                                           join hd in db.Orders on cthd.OrderId equals hd.OrderId
+                                           where cthd.ProductId == qa.ProductId
+                                           select cthd.Quantity
+                                           ).Sum()
+                             where tongSl > 0
+                             orderby tongSl descending
+                             select new
+                             {
+                                 qa.ProductId
+                             }
+                         ).Take(1);
+                //ViewBag.BestSell = db.OrderDetails.Include(p => p.ProductId).Select(p => p.ProductId).
+                ViewBag.BestSell = db.OrderDetails.Max(p => p.ProductId);
+                ViewBag.Category = db.Categories.ToList();
+                return View();
+            }
         }
 
         public IActionResult Login()

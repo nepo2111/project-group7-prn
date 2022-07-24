@@ -230,7 +230,6 @@ namespace project_group7_prn.Models
 
                 entity.Property(e => e.AuthorId).HasColumnName("author_id");
 
-
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
                 entity.Property(e => e.CreateDate)
