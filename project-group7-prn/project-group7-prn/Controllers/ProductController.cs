@@ -43,7 +43,7 @@ namespace project_group7_prn.Controllers
             {
                 ViewBag.Category = db.Categories.ToList();
                 ViewBag.PDetail = db.Products.Find(Pid);
-                ViewBag.FBack = db.Feedbacks.Include(f => f.Product).Where(f => f.ProductId == Pid).ToList();
+                ViewBag.FBack = db.Feedbacks.Include(f => f.Product).Include(f => f.User).Where(f => f.ProductId == Pid).ToList();
                 ViewBag.countFBack = db.Feedbacks.Where(f => f.ProductId == Pid).Count();
             }
                 return View();

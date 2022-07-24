@@ -54,23 +54,23 @@
             </div>
             <!--initiate accordion-->
             <script type="text/javascript">
-			$(function() {
-			    var menu_ul = $('.menu > li > ul'),
-			           menu_a  = $('.menu > li > a');
-			    menu_ul.hide();
-			    menu_a.click(function(e) {
-			        e.preventDefault();
-			        if(!$(this).hasClass('active')) {
-			            menu_a.removeClass('active');
-			            menu_ul.filter(':visible').slideUp('normal');
-			            $(this).addClass('active').next().stop(true,true).slideDown('normal');
-			        } else {
-			            $(this).removeClass('active');
-			            $(this).next().stop(true,true).slideUp('normal');
-			        }
-			    });
+                $(function () {
+                    var menu_ul = $('.menu > li > ul'),
+                        menu_a = $('.menu > li > a');
+                    menu_ul.hide();
+                    menu_a.click(function (e) {
+                        e.preventDefault();
+                        if (!$(this).hasClass('active')) {
+                            menu_a.removeClass('active');
+                            menu_ul.filter(':visible').slideUp('normal');
+                            $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                        } else {
+                            $(this).removeClass('active');
+                            $(this).next().stop(true, true).slideUp('normal');
+                        }
+                    });
 
-			});
+                });
             </script>
             <!---->
             <div class="product-middle">
@@ -81,7 +81,7 @@
                     <div class="clearfix"> </div>
                 </div>
             </div>
-            
+
             <!---->
             <div class="product-bottom">
                 <div class="of-left-in">
@@ -136,32 +136,15 @@
                 </a>
             </div>
         </div>
+        @{ Product p = ViewBag.PDetail as Product;}
         <div class="col-md-9 product-price1">
             <div class="col-md-5 single-top">
                 <div class="flexslider">
-                    <ul class="slides">
-                        <li data-thumb="images/si.jpg">
-                            <img src="images/si.jpg" />
-                        </li>
-                        <li data-thumb="images/si1.jpg">
-                            <img src="images/si1.jpg" />
-                        </li>
-                        <li data-thumb="images/si2.jpg">
-                            <img src="images/si2.jpg" />
-                        </li>
-                        <li data-thumb="images/si.jpg">
-                            <img src="images/si.jpg" />
-                        </li>
-                    </ul>
+                    <img class="img-responsive" src="@(p.Img)" />
                 </div>
-                <!-- FlexSlider -->
-                <script defer src="js/jquery.flexslider.js"></script>
-                <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-
             </div>
             <div class="col-md-7 single-top-in simpleCart_shelfItem">
                 <div class="single-para ">
-                    @{ Product p = ViewBag.PDetail as Product;}
                     <h4>@(p.Title)</h4>
                     <div class="star-on">
                         <ul class="star-footer">
@@ -190,65 +173,39 @@
             <div class="clearfix"> </div>
             <!---->
             <div class="cd-tabs">
-                <nav>
+                <nav style="margin-top: 55px">
                     <ul class="cd-tabs-navigation">
                         <li><a data-content="television" href="#0" class="selected ">Reviews @(ViewBag.countFBack)</a></li>
 
                     </ul>
                 </nav>
                 <ul class="cd-tabs-content">
-                    <li data-content="fashion">
-                        <div class="facts">
-                            <p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined </p>
-                            <ul>
-                                <li>Research</li>
-                                <li>Design and Development</li>
-                                <li>Porting and Optimization</li>
-                                <li>System integration</li>
-                                <li>Verification, Validation and Testing</li>
-                                <li>Maintenance and Support</li>
-                            </ul>
-                        </div>
-
-                    </li>
-                    <li data-content="cinema">
-                        <div class="facts1">
-
-                            <div class="color">
-                                <p>Color</p>
-                                <span>Blue, Black, Red</span>
-                                <div class="clearfix"></div>
+                    @foreach (Feedback fb in ViewBag.FBack)
+                    {
+                        <li data-content="television" class="selected">
+                            <div class="comments-top-top">
+                                <div class="top-comment-left">
+                                    <img class="img-responsive" src="@(fb.User.Avatar)" alt="">
+                                </div>
+                                <div class="top-comment-right">
+                                    <h6>@(fb.User.Fullname) - @(fb.FeedbackDate?.ToString("dd/MM/yyyy"))</h6>
+                                    <ul class="star-footer">
+                                        @for (int i = 1; i <= fb.Rated; i++)
+                                        {
+                                            <li><i> </i></li>
+                                        }
+                                        @for (int i = (int)fb.Rated + 1; i <= 5; i++)
+                                        {
+                                            @*<li><a href="#"><i> </i></a></li>*@
+                                        }
+                                    </ul>
+                                    <p>@(fb.FbContent)</p>
+                                </div>
+                                <div class="clearfix"> </div>
+                                <a class="add-re" href="#">ADD REVIEW</a>
                             </div>
-                            <div class="color">
-                                <p>Size</p>
-                                <span>S, M, L, XL</span>
-                                <div class="clearfix"></div>
-                            </div>
-
-                        </div>
-
-                    </li>
-                    <li data-content="television" class="selected">
-                        <div class="comments-top-top">
-                            <div class="top-comment-left">
-                                <img class="img-responsive" src="images/co.png" alt="">
-                            </div>
-                            <div class="top-comment-right">
-                                <h6><a href="#">Hendri</a> - September 3, 2014</h6>
-                                <ul class="star-footer">
-                                    <li><a href="#"><i> </i></a></li>
-                                    <li><a href="#"><i> </i></a></li>
-                                    <li><a href="#"><i> </i></a></li>
-                                    <li><a href="#"><i> </i></a></li>
-                                    <li><a href="#"><i> </i></a></li>
-                                </ul>
-                                <p>Wow nice!</p>
-                            </div>
-                            <div class="clearfix"> </div>
-                            <a class="add-re" href="#">ADD REVIEW</a>
-                        </div>
-
-                    </li>
+                        </li>
+                    }
                     <div class="clearfix"></div>
                 </ul>
             </div>
