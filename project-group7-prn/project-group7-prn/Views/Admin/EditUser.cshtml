@@ -13,11 +13,17 @@
     </div>
 
     <!-- Content Row -->
+    @if (ViewBag.mess != null)
+    {
+        <div class="alert alert-success" role="alert" style="text-align:center">
+            @ViewBag.mess
+        </div>
+    }
     <div class="card shadow mb-4">
 
         <div class="card-body">
-            <form asp-controller="Admin" asp-action="UpdateUser">
-                <input type="hidden" id="h-user-id" asp-for="@Model.UserId" value="@Model.UserId" data-action="@Model.Active" />
+            <input type="hidden" id="h-user-id" value="@Model.UserId" data-action="@Model.Active" />
+            <form asp-controller="Admin" asp-action="EditUser" id="form-update">
                 <div class="form-group">
                     &nbsp;&nbsp;&nbsp;
                     <button id="btn-status" data-id="" data-status="" type="button" class="btn @(Model.Active == true ? " btn-success" : "btn-danger") btn-id">
@@ -48,17 +54,27 @@
                     <input type="text" class="form-control" asp-for="Address" placeholder="Enter Address">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
+                    <label for="exampleInputPassword1">Phone</label>
+                    <input type="text" class="form-control" asp-for="Phone" id="exampleInputPassword1" placeholder="Enter Phone Number">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" asp-for="Password" id="exampleInputPassword1" placeholder="Confirm Password">
+                    <label for="exampleInputPassword1">Avatar</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="file" asp-for="Avatar">
                 </div>
 
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="text" class="form-control" asp-for="Password" id="exampleInputPassword1" placeholder="Enter Password">
+                </div>
 
-                <button type="submit" class="btn btn-dark">Cancel</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="/Admin/UserList" class="btn btn-info" role="button">Cancel</a>
+                <button type="button" class="btn btn-primary" id="submit-button">Submit</button>
+                <input type="hidden" asp-for="@Model.Email" />
+                <input type="hidden" asp-for="@Model.Role" />
+                <input type="hidden" asp-for="@Model.Active" />
+                <input type="hidden" asp-for="@Model.UserId" />
+
             </form>
         </div>
     </div>
@@ -122,6 +138,32 @@
     </div>
 </div>
 
+<!-- Update Modal-->
+<div class="modal fade" id="confirm-update-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="ct1"></p>
+                <p>Do you want to proceed?</p>
+                <p class="debug-url"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btn-update">Change</a>
+            </div>
+            <input type="hidden" id="hUid" value="0" />
+            <input type="hidden" id="hStatus" value="" />
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $('#btn-status').click(function () {
         var uid = $('#h-user-id').val();
@@ -144,6 +186,11 @@
     $('.btn-change').click(function () {
         var uid = $('#hUid').val();
         var status = $('#hStatus').val();
+        if (status == "True") {
+            status = "False";
+        } else {
+            status = "True";
+        }
         $.ajax({
             url: "/Admin/ChangeActiveUser",
             type: "get", //send it through get method
@@ -153,7 +200,7 @@
             },
             success: function (response) {
                 //Do Something
-                $('#confirm-show-slider').modal('toggle');
+                $('#confirm-change-active').modal('toggle');
                 sessionStorage.setItem('save_order', true);
                 window.location.reload();
 
@@ -173,4 +220,23 @@
         }
     }
     );
+
+    $('#submit-button').click(function () {
+        $('#ct1').html('User information will be updated.');
+        $('#confirm-update-user').modal({
+            backdrop: 'static',
+            keyboard: true,
+            show: true
+        }
+        );
+    });
+
+
+    $('.btn-update').click(function () {
+        $('#form-update').submit();
+        $('#confirm-update-user').modal('toggle');
+       
+        
+    });
 </script>
+

@@ -20,6 +20,17 @@ namespace project_group7_prn.DAO
                 return user;
         }
 
+        public User GetUserById(int id)
+        {
+            User user = null;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                user = context.Users.FirstOrDefault(x => x.UserId == id);
+            }
+
+            return user;
+        }
+
         public void AddUser(User user)
         {
             if (user == null) return;
@@ -46,9 +57,6 @@ namespace project_group7_prn.DAO
             using (onlineShopSWPContext context = new onlineShopSWPContext())
             {
                 users = context.Users
-                    .Include(x => x.Carts)
-                    .Include(x => x.Feedbacks)
-                    .Include(x => x.Orders)
                     .ToList<User>();
                 
             }
