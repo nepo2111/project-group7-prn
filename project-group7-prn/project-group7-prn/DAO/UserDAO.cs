@@ -1,4 +1,5 @@
-﻿using project_group7_prn.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using project_group7_prn.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,23 @@ namespace project_group7_prn.DAO
                 context.Users.Update(user);
                 context.SaveChanges();
             }
+        }
+
+        public List<User> GetUsers()
+        {
+            List<User> users = null;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                context.Users
+                    .Include(x => x.Carts)
+                    .Include(x => x.Feedbacks)
+                    .Include(x => x.Orders)
+                    .ToList<User>();
+                
+            }
+
+            return users;
+
         }
     }
 }
