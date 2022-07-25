@@ -9,70 +9,16 @@
                     <h3 class="cate">Categories</h3>
                 </div>
                 <ul class="menu">
-                    <li class="item1">
-                        <a href="#">Men </a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="#">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="#">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="#">Automatic Fails </a></li>
-                        </ul>
-                    </li>
-                    <li class="item2">
-                        <a href="#">Women </a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="#">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="#">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="#">Automatic Fails </a></li>
-                        </ul>
-                    </li>
-                    <li class="item3">
-                        <a href="#">Kids</a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="#">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="#">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="#">Automatic Fails</a></li>
-                        </ul>
-                    </li>
-                    <li class="item4">
-                        <a href="#">Accesories</a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="#">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="#">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="#">Automatic Fails</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="item4">
-                        <a href="#">Shoes</a>
-                        <ul class="cute">
-                            <li class="subitem1"><a href="#">Cute Kittens </a></li>
-                            <li class="subitem2"><a href="#">Strange Stuff </a></li>
-                            <li class="subitem3"><a href="product.html">Automatic Fails </a></li>
-                        </ul>
-                    </li>
+                    @foreach (Category ct in ViewBag.Category)
+                    {
+                        <li class="item1">
+                            <a asp-controller="Product" asp-action="Index" asp-route-Cid="@(ct.Id)">@(ct.Name)</a>
+                        </li>
+                    }
                 </ul>
             </div>
             <!--initiate accordion-->
-            <script type="text/javascript">
-                $(function () {
-                    var menu_ul = $('.menu > li > ul'),
-                        menu_a = $('.menu > li > a');
-                    menu_ul.hide();
-                    menu_a.click(function (e) {
-                        e.preventDefault();
-                        if (!$(this).hasClass('active')) {
-                            menu_a.removeClass('active');
-                            menu_ul.filter(':visible').slideUp('normal');
-                            $(this).addClass('active').next().stop(true, true).slideDown('normal');
-                        } else {
-                            $(this).removeClass('active');
-                            $(this).next().stop(true, true).slideUp('normal');
-                        }
-                    });
-
-                });
-            </script>
-            <!---->
+            
             <div class="product-middle">
 
                 <div class="fit-top">
@@ -137,78 +83,105 @@
             </div>
         </div>
         @{ Product p = ViewBag.PDetail as Product;}
-        <div class="col-md-9 product-price1">
-            <div class="col-md-5 single-top">
-                <div class="flexslider">
-                    <img class="img-responsive" src="@(p.Img)" />
-                </div>
+    <div class="col-md-9 product-price1">
+        <div class="col-md-5 single-top">
+            <div class="flexslider">
+                <img class="img-responsive" src="@(p.Img)" />
             </div>
-            <div class="col-md-7 single-top-in simpleCart_shelfItem">
-                <div class="single-para ">
-                    <h4>@(p.Title)</h4>
-                    <div class="star-on">
-                        <ul class="star-footer">
-                            <li><a href="#"><i> </i></a></li>
-                            <li><a href="#"><i> </i></a></li>
-                            <li><a href="#"><i> </i></a></li>
-                            <li><a href="#"><i> </i></a></li>
-                            <li><a href="#"><i> </i></a></li>
-                        </ul>
-                        <div class="clearfix"> </div>
-                    </div>
-                    @if (p.SalePrice != null)
-                    {
-                        <h5 class="item_price"><del style="margin-right: 30px;">@(p.Price)</del><span>@(p.SalePrice)</span></h5>
-                    }
-                    else
-                    {
-                        <h5 class="item_price">@(p.Price)</h5>
-                    }
-
-                    <p>@(p.Description)</p>
-                    <a href="#" class="add-cart item_add">ADD TO CART</a>
-
+        </div>
+        <div class="col-md-7 single-top-in simpleCart_shelfItem">
+            <div class="single-para ">
+                <h4>@(p.Title)</h4>
+                <div class="star-on">
+                    <ul class="star-footer">
+                        <li><a href="#"><i> </i></a></li>
+                        <li><a href="#"><i> </i></a></li>
+                        <li><a href="#"><i> </i></a></li>
+                        <li><a href="#"><i> </i></a></li>
+                        <li><a href="#"><i> </i></a></li>
+                    </ul>
+                    <div class="clearfix"> </div>
                 </div>
+                @if (p.SalePrice != null)
+                {
+                    <h5 class="item_price"><del style="margin-right: 30px;">@(p.Price)</del><span>@(p.SalePrice)</span></h5>
+                }
+                else
+                {
+                    <h5 class="item_price">@(p.Price)</h5>
+                }
+
+                <p>@(p.Description)</p>
+                <a href="#" class="add-cart item_add">ADD TO CART</a>
+
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+        <!---->
+        <div class="cd-tabs">
+            <nav style="margin-top: 55px">
+                <ul class="cd-tabs-navigation">
+                    <li><a data-content="television" href="#0" class="selected ">Reviews @(ViewBag.countFBack)</a></li>
+
+                </ul>
+            </nav>
+            <ul class="cd-tabs-content" id="feedback">
+                @foreach (Feedback fb in ViewBag.FBack)
+                {
+                    <li data-content="television" class="selected">
+                        <div class="comments-top-top">
+                            <div class="top-comment-left">
+                                <img class="img-responsive" src="@(fb.User.Avatar)" alt="">
+                            </div>
+                            <div class="top-comment-right" style="margin-bottom: 10px">
+                                <h6>@(fb.User.Fullname) - @(fb.FeedbackDate?.ToString("dd/MM/yyyy"))</h6>
+                                <ul class="star-footer">
+                                    @for (int i = 1; i <= fb.Rated; i++)
+                                    {
+                                        <li><i> </i></li>
+                                    }
+                                    @for (int i = (int)fb.Rated + 1; i <= 5; i++)
+                                    {
+                                        @*<li><a href="#"><i> </i></a></li>*@
+                                    }
+                                </ul>
+                                <p>@(fb.FbContent)</p>
+                                @if(ViewBag.UserId == fb.UserId) 
+                                { 
+                                    <div style="text-align: end">
+                                        <a class="text-primary editfb" id="@(fb.FeedbackId)">Edit</a> / 
+                                        <a class="text-danger deletefb" id="@(fb.FeedbackId)">Delete</a>
+                                    </div>
+                                 }
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+            <a class="add-re add-hiden"style="cursor: pointer;">ADD REVIEW</a>
+            <div style="display: none;" id="addfeedback">
+                    <input type="text" name="fbcontent" style="margin-top: 5px; height: 35px; width: 100%; border: none; border-bottom: 1px solid #EF5F21; outline: none; box-shadow: 0 0 5pt 2pt #d6d6d6; border-radius: 4px; padding: 0px 10px; " />
+                    <label>Rate</label>
+                    <input type="radio" value="1" name="rate"> 1
+                    <input type="radio" value="2" name="rate"> 2
+                    <input type="radio" value="3" name="rate"> 3
+                    <input type="radio" value="4" name="rate"> 4
+                    <input type="radio" value="5" name="rate"> 5
+                    <div style="text-align: center;">
+                        <a class="add-re" id="btadd" style="cursor: pointer;">COMMENT</a>
+                    </div>
+                    <input type="hidden" name="containFbID"> 
             </div>
             <div class="clearfix"> </div>
-            <!---->
-            <div class="cd-tabs">
-                <nav style="margin-top: 55px">
-                    <ul class="cd-tabs-navigation">
-                        <li><a data-content="television" href="#0" class="selected ">Reviews @(ViewBag.countFBack)</a></li>
-
-                    </ul>
-                </nav>
-                <ul class="cd-tabs-content">
-                    @foreach (Feedback fb in ViewBag.FBack)
-                    {
-                        <li data-content="television" class="selected">
-                            <div class="comments-top-top">
-                                <div class="top-comment-left">
-                                    <img class="img-responsive" src="@(fb.User.Avatar)" alt="">
-                                </div>
-                                <div class="top-comment-right">
-                                    <h6>@(fb.User.Fullname) - @(fb.FeedbackDate?.ToString("dd/MM/yyyy"))</h6>
-                                    <ul class="star-footer">
-                                        @for (int i = 1; i <= fb.Rated; i++)
-                                        {
-                                            <li><i> </i></li>
-                                        }
-                                        @for (int i = (int)fb.Rated + 1; i <= 5; i++)
-                                        {
-                                            @*<li><a href="#"><i> </i></a></li>*@
-                                        }
-                                    </ul>
-                                    <p>@(fb.FbContent)</p>
-                                </div>
-                                <div class="clearfix"> </div>
-                                <a class="add-re" href="#">ADD REVIEW</a>
-                            </div>
-                        </li>
-                    }
-                    <div class="clearfix"></div>
-                </ul>
+            <div style="display: flex; justify-content: end;">
+                <div>
+                    <a class="add-re h" style="cursor: pointer;">hide away</a>
+                    <a class="add-re viewmore" id="2" style="cursor: pointer;">View more</a>
+                </div>
             </div>
+            <div class="clearfix"></div>
+
+        </div>
             <div class=" bottom-product">
                 <div class="col-md-4 bottom-cd simpleCart_shelfItem">
                     <div class="product-at ">
@@ -253,4 +226,132 @@
         <div class="clearfix"> </div>
     </div>
 </div>
+<script>
+    $(".viewmore").click(function () {
+        var id = $(this).attr('id');
+        $(this).attr("id", (parseInt(id) + 1));
+        console.log(id);
+
+        $.ajax({
+            url: '/Product/viewFeedBack/',
+            dataType: "json",
+            type: "POST",
+            data: { Id: id, Pid: @(p.ProductId)},
+            success: function (data) {
+                var feedback = document.getElementById('feedback');
+                feedback.innerHTML = data;
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    });
+
+    $(".h").click(function () {
+        $.ajax({
+            url: '/Product/viewFeedBack/',
+            dataType: "json",
+            type: "POST",
+            data: { Id: 1, Pid: @(p.ProductId)},
+            success: function (data) {
+                var feedback = document.getElementById('feedback');
+                feedback.innerHTML = data;
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    });
+
+    $(".add-hiden").click(function () {
+        var h = $(this).text();
+        if ($(this).text() == "ADD REVIEW") {
+            $("#addfeedback").css("display", "block");
+            $(this).text("HIDDEN");
+            $("#btadd").text("Comment");
+        } else {
+            $("#addfeedback").css("display", "none");
+            $(this).text("ADD REVIEW");
+            $("input[name='fbcontent']").val("");
+            var rate = $("input[name='rate']").tooltip();
+            for (var i = 0; i < rate.length; i++) {
+                if (rate[i].checked == true) {
+                    rate[i].checked = false;
+                }
+            }
+        }
+    });
+
+    $("#btadd").click(function () {
+        var fbId = $("input[name='containFbID']").val();
+        var fbContent = $("input[name='fbcontent']").val();
+        var rate = $("input[name='rate']").tooltip();
+        var rateValue;
+        for (var i = 0; i < rate.length; i++) {
+            if (rate[i].checked == true) {
+                rateValue = rate[i].value;
+            }
+        }
+        if ($("#btadd").text() == "COMMENT") {
+            $.ajax({
+                url: '/Product/insertFeedBack/',
+                dataType: "json",
+                type: "POST",
+                data: { id: 1, pId: @(p.ProductId), fbContent: fbContent, rate: rateValue },
+                success: function (data) {
+                    var feedback = document.getElementById('feedback');
+                    feedback.innerHTML = data;
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        }
+        if ($("#btadd").text() == "SAVE") {
+            $.ajax({
+                url: '/Product/UPdateFeedBack/',
+                dataType: "json",
+                type: "POST",
+                data: { fbId: fbId, id: 1, pId: @(p.ProductId), fbContent: fbContent, rate: rateValue},
+                success: function (data) {
+                    var feedback = document.getElementById('feedback');
+                    feedback.innerHTML = data;
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        }
+
+        $("input[name='fbcontent']").val("");
+        var rate = $("input[name='rate']").tooltip();
+        for (var i = 0; i < rate.length; i++) {
+            if (rate[i].checked == true) {
+                rate[i].checked = false;
+            }
+        }
+    });
+
+    $(".editfb").click(function () {
+        var fbId = $(this).attr('id');
+        console.log(fbId);
+        $("#addfeedback").css("display", "block");
+        $(".add-hiden").text("HIDDEN");
+
+        $.ajax({
+            url: '/Product/FindFeedBack/',
+            dataType: "json",
+            type: "POST",
+            data: { fbId: fbId},
+            success: function (data) {
+                var feedback = document.getElementById('addfeedback');
+                feedback.innerHTML = data;
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    });
+
+</script>
 <!--//content-->
