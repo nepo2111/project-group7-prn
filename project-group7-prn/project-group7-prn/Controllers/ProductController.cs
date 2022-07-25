@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PagedList;
 using project_group7_prn.DAO.ProductDAO;
@@ -12,7 +13,7 @@ namespace project_group7_prn.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult Index(int Cid, int Page)
+        public IActionResult Index(int Cid, int Page, string search)
         {
             using (var db = new onlineShopSWPContext())
             {
@@ -22,7 +23,14 @@ namespace project_group7_prn.Controllers
                 {
                     pageNumber = Page;
                 }
-                int pageSize = db.Products.Where(p => p.CategoryId == (Cid == 0 ? p.CategoryId : Cid)).Count();
+                
+                int pageSize = 0;
+
+                pageSize = db.Products.Where(p => p.CategoryId == (Cid == 0 ? p.CategoryId : Cid) && p.Active == 1).Count(); 
+
+                if (search != null) {
+                    pageSize = db.Products.Where(p => p.Title.ToLower().Contains(search.Equals("") ? p.Title : search.ToLower()) && p.Active == 1).Count();
+                }
                 int size = pageSize / 9;
                 if (pageSize % 9 != 0)
                 {
@@ -30,9 +38,20 @@ namespace project_group7_prn.Controllers
                 }
 
                 ViewBag.Size = size;
-                ViewBag.Product = db.Products.Where(p => p.CategoryId == (Cid == 0 ? p.CategoryId : Cid)).ToList().ToPagedList(pageNumber, 9);
+
+                ViewBag.Product = db.Products.Where(p => p.CategoryId == (Cid == 0 ? p.CategoryId : Cid) && p.Active == 1).ToList().ToPagedList(pageNumber, 9);
+                
+                if (search != null)
+                {
+                    ViewBag.Product = db.Products.Where(p => p.Title.ToLower().Contains(search.Equals("") ? p.Title : search.ToLower()) && p.Active == 1).ToList().ToPagedList(pageNumber, 9);
+                }
+                
                 if (Cid != 0) {
                     ViewBag.Cid = Cid;
+                }
+                if (search != null)
+                {
+                    ViewBag.Search = search;
                 }
 
 
@@ -52,6 +71,7 @@ namespace project_group7_prn.Controllers
                 return View();
             }
         }
+
         public IActionResult Detail(int Pid)
         {
             using (var db = new onlineShopSWPContext())

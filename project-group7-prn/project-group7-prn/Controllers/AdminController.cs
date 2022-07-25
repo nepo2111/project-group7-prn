@@ -231,5 +231,53 @@ namespace project_group7_prn.Controllers
             }
 
         }
+
+
+
+        public IActionResult AddNewProduct()
+        {
+            onlineShopSWPContext context = new onlineShopSWPContext();
+            CategoryDAO cDao = new CategoryDAO();
+            ProductsDAO pDao = new ProductsDAO();
+            Product product = new Product();
+            product.Active = 1;
+            product.AuthorId = 1;
+            product.CreateDate = DateTime.Now;
+            ViewData["categories"] = new SelectList(context.Categories, "Id", "Name");
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult AddNewProduct(Product product, List<IFormFile> postedFiles)
+        {
+            string wwwPath = this.Environment.WebRootPath;
+            string contentPath = this.Environment.ContentRootPath;
+
+            string path = Path.Combine(this.Environment.WebRootPath, "Individual/User/Images");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            List<string> uploadedFiles = new List<string>();
+            foreach (IFormFile postedFile in postedFiles)
+            {
+                string fileName = Path.GetFileName(postedFile.FileName);
+                product.Img = fileName;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                    uploadedFiles.Add(fileName);
+                }
+            }
+            onlineShopSWPContext context = new onlineShopSWPContext();
+            ProductsDAO pDao = new ProductsDAO();
+            pDao.AddProduct(product);
+            ViewData["mess"] = "New product added successfully!";
+            ViewData["categories"] = new SelectList(context.Categories, "Id", "Name");
+
+            return View(product);
+        }
     }
 }

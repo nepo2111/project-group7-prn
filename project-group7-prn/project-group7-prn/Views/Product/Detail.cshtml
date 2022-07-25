@@ -9,6 +9,9 @@
                     <h3 class="cate">Categories</h3>
                 </div>
                 <ul class="menu">
+                    <li class="item1">
+                        <a asp-controller="Product" asp-action="Index" asp-route-Cid="0">All Product</a>
+                    </li>
                     @foreach (Category ct in ViewBag.Category)
                     {
                         <li class="item1">

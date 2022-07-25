@@ -1,0 +1,113 @@
+﻿@using project_group7_prn.Models
+<div class="container">
+    <div class="check">
+        <h1>My Order-Detail</h1>
+        <div class="col-md-9 cart-items" id="detail" style="display:none;">
+            <div class="table Product">
+                <table class="table table-striped" id="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Sale</th>
+                        </tr>
+                    </thead>
+                    <tbody id="content-course">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="totalMoney" style=" display: flex; justify-content: end;">
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="content-course">
+                        <tr>
+                            <td style="padding-right: 100px; padding-bottom: 5px; font-size: 17px">Total Product:</td>
+                            <td style="font-size: 17px" id="ttProduct"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right: 100px; padding-bottom: 5px; font-size: 17px">Total Price:</td>
+                            <td style="font-size: 17px" id="ttPrice"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right: 100px; padding-bottom: 5px; font-size: 17px">Total Sale:</td>
+                            <td style="font-size: 17px" id="ttSale"></td>
+                        </tr>
+                        <hr>
+                        <tr>
+                            <td style="padding-right: 100px; padding-bottom: 5px; font-size: 17px"><b>Total</b>:</td>
+                            <td style="font-size: 17px" id="tt"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-9 cart-items" id="detail-none" >
+        </div>
+        <div class="col-md-3 cart-total">
+            @foreach(Order o in ViewBag.Order) {
+            <a class="continue" style="cursor: pointer" id="@(o.OrderId)" onclick="ViewDetail(@(o.OrderId))">View Detail</a>
+            <div class="price-details">
+                <h3>Order Date: @(o.OrderDate?.ToString("dd/MM/yyyy"))</h3>
+                <p style="margin-left: 20px; margin-bottom: 5px;">Full name: @(o.Fullname)</p>
+                <p style="margin-left: 20px; margin-bottom: 5px;">Address: @(o.Address)</p>
+                <p style="margin-left: 20px; margin-bottom: 5px;">Phone: @(o.Phone)</p>
+                <div class="clearfix"></div>
+            </div>
+            <ul class="total_price">
+                <li class="last_price"> <h4>Total Price:</h4></li>
+                <li class="last_price"><span style="color:red">@(o.Total)</span></li>
+                <div class="clearfix"> </div>
+            </ul>
+            }
+            <div class="clearfix"></div>
+            
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<script>
+    function ViewDetail(orderId) {
+        document.getElementById('detail').style.display = 'block';
+        document.getElementById('detail-none').style.display = 'none';
+        $.ajax({
+            url: '/Order/OrderDetail/',
+            dataType: "json",
+            type: "POST",
+            data: { orderId: orderId },
+            success: function (data) {
+                const orderDetail = data;
+                let ttproduct = 0;
+                let ttprice = 0;
+                let ttsale = 0;
+                let tt = 0;
+                var bodyTable = document.getElementById('content-course');
+                for (var i = 0; i < orderDetail.length; i++) {
+                    bodyTable.innerHTML +=  "   <tr>" +
+                                            "       <td> <img style=\"width: 10%;\" src=" + orderDetail[i].img + "> " + orderDetail[i].title + "</td>" +
+                                            "       <td>" + orderDetail[i].quantity +"</td>" +
+                                            "       <td style=\"color: red;\">" + orderDetail[i].price + "</td>" +
+                                            "       <td style=\"color: red;\">" + (orderDetail[i].price - orderDetail[i].salePrice) + "</td>" +
+                                            "   </tr >";
+                    ttproduct += orderDetail[i].quantity;
+                    ttprice += (orderDetail[i].price * orderDetail[i].quantity);
+                    ttsale += ((orderDetail[i].price - orderDetail[i].salePrice) * orderDetail[i].quantity);
+                }
+                tt = ttprice - ttsale;
+                document.getElementById('ttProduct').innerHTML = ttproduct;
+                document.getElementById('ttPrice').innerHTML = ttprice;
+                document.getElementById('ttSale').innerHTML = ttsale;
+                document.getElementById('tt').innerHTML = tt;
+            },
+        });
+    }
+</script>
+
+    < !--//content-->
