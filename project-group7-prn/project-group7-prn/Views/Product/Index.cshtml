@@ -9,13 +9,19 @@
                     <h3 class="cate">Categories</h3>
                 </div>
                 <ul class="menu">
+                    <li>
+                        <form action="/Product/Index" method="get">
+                            <input type="text" placeholder="Search" name="Search" value="@(ViewBag.Value)">
+                            <input type="submit" value="Go">
+                        </form>
+                    </li>
                     <li class="item1">
                         <a asp-controller="Product" asp-action="Index" asp-route-Cid="0">All Product</a>
                     </li>
                     @foreach (Category ct in ViewBag.Category)
                     {
                         <li class="item1">
-                            <a  asp-controller="Product" asp-action="Index" asp-route-Cid="@(ct.Id)">@(ct.Name)</a>
+                            <a asp-controller="Product" asp-action="Index" asp-route-Cid="@(ct.Id)">@(ct.Name)</a>
                         </li>
                     }
                 </ul>
@@ -28,7 +34,7 @@
                     <div class="clearfix"> </div>
                 </div>
             </div>
-            
+
             <!---->
             <div class="product-bottom">
                 <div class="of-left-in">
@@ -76,33 +82,36 @@
                 </a>
             </div>*@
         </div>
+        
         <div class="col-md-9 product1">
             <div class=" bottom-product">
                 @foreach (Product p in ViewBag.Product)
                 {
-                <div class="col-md-4 bottom-cd simpleCart_shelfItem">
-                    <div class="product-at ">
-                        <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(p.ProductId)">
-                            <img class="img-responsive" src="@(p.Img)" alt="">
-                            <div class="pro-grid">
-                                <span class="buy-in">Buy Now</span>
-                            </div>
+                    <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                        <div class="product-at ">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(p.ProductId)">
+                                <img class="img-responsive" src="@(p.Img)" alt="">
+                                <div class="pro-grid">
+                                    <span class="buy-in">Buy Now</span>
+                                </div>
+                            </a>
+                        </div>
+                        <p class="tun">@(p.Title)</p>
+                        <a href="#" class="item_add">
+                            <p class="number item_price">
+                                <i> </i>
+                                @if (p.SalePrice != null)
+                                {
+                                    <del style="margin-right: 20px">@(p.Price)</del>
+                                    <span>@(p.SalePrice)</span>
+                                }
+                                else
+                                {
+                                    <span>@(p.Price)</span>
+                                }
+                            </p>
                         </a>
                     </div>
-                    <p class="tun">@(p.Title)</p>
-                    <a href="#" class="item_add"><p class="number item_price">
-                    <i> </i>
-                    @if (p.SalePrice != null)
-                    {
-                        <del style="margin-right: 20px">@(p.Price)</del>
-                        <span>@(p.SalePrice)</span>
-                    }
-                    else
-                    {
-                        <span>@(p.Price)</span>
-                    }
-                    </p></a>
-                </div>
                 }
             </div>
 
@@ -110,12 +119,12 @@
         <div class="clearfix"> </div>
         <nav class="in">
             <ul class="pagination">
-                <li><a asp-action="Index" asp-route-Cid="@(ViewBag.Cid)" asp-route-Page="@(ViewBag.pageNumber-1==0?1:ViewBag.pageNumber-1)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                <li><a asp-action="Index" asp-route-Cid="@(ViewBag.Cid)" asp-route-search="@(ViewBag.Search)" asp-route-Page="@(ViewBag.pageNumber-1==0?1:ViewBag.pageNumber-1)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
                 @for (int a = 1; a <= (ViewBag.Size); a++)
                 {
-                    <li @(ViewBag.pageNumber == a?"class=\"active\"":"")><a asp-action="Index" asp-route-Cid="@(ViewBag.Cid)" asp-route-Page="@(a)">@(a) <span class="sr-only"></span></a></li>
+                    <li @(ViewBag.pageNumber == a ? "class=\"active\"" : "")><a asp-action="Index" asp-route-search="@(ViewBag.Search)" asp-route-Cid="@(ViewBag.Cid)" asp-route-Page="@(a)">@(a) <span class="sr-only"></span></a></li>
                 }
-                <li> <a asp-action="Index" asp-route-Cid="@(ViewBag.Cid)" asp-route-Page="@(ViewBag.pageNumber+1>ViewBag.Size?ViewBag.Size:ViewBag.pageNumber+1)" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
+                <li> <a asp-action="Index" asp-route-Cid="@(ViewBag.Cid)" asp-route-search="@(ViewBag.Search)" asp-route-Page="@(ViewBag.pageNumber+1>ViewBag.Size?ViewBag.Size:ViewBag.pageNumber+1)" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
             </ul>
         </nav>
     </div>

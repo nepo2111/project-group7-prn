@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Order\Index.cshtml" />
     <None Include="wwwroot\Individual\Home\js\ResetPassword.js" />
   </ItemGroup>
 
