@@ -149,8 +149,8 @@
                                 @if(ViewBag.UserId == fb.UserId) 
                                 { 
                                     <div style="text-align: end">
-                                        <a class="text-primary editfb" id="@(fb.FeedbackId)">Edit</a> / 
-                                        <a class="text-danger deletefb" id="@(fb.FeedbackId)">Delete</a>
+                                        <a class="text-primary editfb" id="@(fb.FeedbackId)" onclick="EditFeedBack(@(fb.FeedbackId))">Edit</a> / 
+                                        <a class="text-danger deletefb" id="@(fb.FeedbackId)" onclick="DeleteFeedBack(@(fb.FeedbackId),this)">Delete</a>
                                     </div>
                                  }
                             </div>
@@ -160,17 +160,17 @@
             </ul>
             <a class="add-re add-hiden"style="cursor: pointer;">ADD REVIEW</a>
             <div style="display: none;" id="addfeedback">
-                    <input type="text" name="fbcontent" style="margin-top: 5px; height: 35px; width: 100%; border: none; border-bottom: 1px solid #EF5F21; outline: none; box-shadow: 0 0 5pt 2pt #d6d6d6; border-radius: 4px; padding: 0px 10px; " />
-                    <label>Rate</label>
-                    <input type="radio" value="1" name="rate"> 1
-                    <input type="radio" value="2" name="rate"> 2
-                    <input type="radio" value="3" name="rate"> 3
-                    <input type="radio" value="4" name="rate"> 4
-                    <input type="radio" value="5" name="rate"> 5
-                    <div style="text-align: center;">
-                        <a class="add-re" id="btadd" style="cursor: pointer;">COMMENT</a>
-                    </div>
-                    <input type="hidden" name="containFbID"> 
+                <input type="text" name="fbcontent" style="margin-top: 5px; height: 35px; width: 100%; border: none; border-bottom: 1px solid #EF5F21; outline: none; box-shadow: 0 0 5pt 2pt #d6d6d6; border-radius: 4px; padding: 0px 10px; " required/>
+                <label>Rate</label>
+                <input type="radio" value="1" name="rate" required> 1
+                <input type="radio" value="2" name="rate" required> 2
+                <input type="radio" value="3" name="rate" required> 3
+                <input type="radio" value="4" name="rate" required> 4
+                <input type="radio" value="5" name="rate" required> 5
+                <input type="hidden" name="containFbID" value="@(p.ProductId)">
+                <div style="text-align: center;">
+                    <a class="add-re" id="btadd" style="cursor: pointer;">COMMENT</a>
+                </div>
             </div>
             <div class="clearfix"> </div>
             <div style="display: flex; justify-content: end;">
@@ -227,6 +227,7 @@
     </div>
 </div>
 <script>
+    //show more comment
     $(".viewmore").click(function () {
         var id = $(this).attr('id');
         $(this).attr("id", (parseInt(id) + 1));
@@ -247,7 +248,12 @@
         });
     });
 
+    //reduce comments
     $(".h").click(function () {
+        var id = $(".viewmore").attr('id');
+        if (id > 2) {
+            $(".viewmore").attr("id", (parseInt(id) - 1));
+        }
         $.ajax({
             url: '/Product/viewFeedBack/',
             dataType: "json",
@@ -263,12 +269,13 @@
         });
     });
 
+    //click add feedback
     $(".add-hiden").click(function () {
         var h = $(this).text();
         if ($(this).text() == "ADD REVIEW") {
             $("#addfeedback").css("display", "block");
             $(this).text("HIDDEN");
-            $("#btadd").text("Comment");
+            $("#btadd").text("COMMENT");
         } else {
             $("#addfeedback").css("display", "none");
             $(this).text("ADD REVIEW");
@@ -282,6 +289,7 @@
         }
     });
 
+    //add-edit
     $("#btadd").click(function () {
         var fbId = $("input[name='containFbID']").val();
         var fbContent = $("input[name='fbcontent']").val();
@@ -292,6 +300,8 @@
                 rateValue = rate[i].value;
             }
         }
+
+
         if ($("#btadd").text() == "COMMENT") {
             $.ajax({
                 url: '/Product/insertFeedBack/',
@@ -317,9 +327,6 @@
                     var feedback = document.getElementById('feedback');
                     feedback.innerHTML = data;
                 },
-                error: function (xhr) {
-                    alert('error');
-                }
             });
         }
 
@@ -331,9 +338,9 @@
             }
         }
     });
-
-    $(".editfb").click(function () {
-        var fbId = $(this).attr('id');
+    //edit
+    function EditFeedBack (fID) {
+        var fbId = fID;
         console.log(fbId);
         $("#addfeedback").css("display", "block");
         $(".add-hiden").text("HIDDEN");
@@ -344,14 +351,38 @@
             type: "POST",
             data: { fbId: fbId},
             success: function (data) {
-                var feedback = document.getElementById('addfeedback');
-                feedback.innerHTML = data;
+                console.log(data);
+                $("input[name='fbcontent']").val(data.fbContent);
+                $("input[name='containFbID']").val(data.feedbackId);
+                var rate = $("input[name='rate']").tooltip();
+                for (var i = 0; i < rate.length; i++) {
+                    if (i == (data.rated-1)) {
+                        rate[i].checked=true;
+                    }
+                }
+                $("#btadd").text("SAVE");
             },
             error: function (xhr) {
                 alert('error');
             }
         });
-    });
-
+    }
+    //delete
+    function DeleteFeedBack(fID,btn) {
+        if (confirm("Do you want to delete this course?")) {
+            var id = $(".viewmore").attr('id');
+            $.ajax({
+                url: '/Product/DeleteFeedBack/',
+                dataType: "json",
+                type: "POST",
+                data: { fbId: fID, pId: @(p.ProductId), id: (parseInt(id) - 1)},
+                success: function (data) {
+                    $(btn).closest('li').fadeOut();
+                    var feedback = document.getElementById('feedback');
+                    feedback.innerHTML = data;
+                },
+            });
+        }
+    }
 </script>
 <!--//content-->

@@ -34,20 +34,25 @@ namespace project_group7_prn.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(IFormCollection result)
+        public IActionResult EditUser(IFormCollection result, User user)
         {
+            string gender = result["rdGender"];
+            user.Gender = bool.Parse(gender);
             UserDAO uDao = new UserDAO();
-            
+            uDao.UpdateUser(user);
+            User userNew = uDao.GetUserByEmail(user.Email);
+            ViewData["mess"] = "Successfully updated!";
 
-            return View();
+            return View(userNew);
         }
 
         public void ChangeActiveUser(int uid, string status)
         {
             UserDAO uDao = new UserDAO();
+            User user = uDao.GetUserById(uid);
+            user.Active = bool.Parse(status);
+            uDao.UpdateUser(user);
 
-
-            
         }
 
         public IActionResult Orders()
