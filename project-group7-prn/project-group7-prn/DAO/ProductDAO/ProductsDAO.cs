@@ -1,4 +1,5 @@
-﻿using project_group7_prn.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using project_group7_prn.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,6 +28,51 @@ namespace project_group7_prn.DAO.ProductDAO
                 i.Add(Convert.ToInt32(row["product_id"]));
             }
             return i;
+        }
+
+        public List<Product> GetProducts()
+        {
+            List<Product> products = null;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                products = context.Products
+                    .Include(x => x.Feedbacks)
+                    .Include(x => x.Category)
+                    .ToList<Product>();
+            }
+
+                return products;
+        }
+
+        public Product GetProductById(int id)
+        {
+            Product product = null;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                product = context.Products.FirstOrDefault(x => x.ProductId == id);
+            }
+
+            return product;
+        }
+
+        public void AddProduct(Product product)
+        {
+            if (product == null) return;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                context.Products.Add(product);
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            if (product == null) return;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                context.Products.Update(product);
+                context.SaveChanges();
+            }
         }
     }
 }

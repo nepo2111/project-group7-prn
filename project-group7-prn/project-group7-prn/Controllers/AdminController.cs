@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using project_group7_prn.DAO;
+using project_group7_prn.DAO.ProductDAO;
 using project_group7_prn.Models;
 using project_group7_prn.Services;
 using System;
@@ -152,10 +154,82 @@ namespace project_group7_prn.Controllers
 
         public IActionResult Products()
         {
-
+            ProductsDAO pDao = new ProductsDAO();
+            ViewData["products"] = pDao.GetProducts();
 
 
             return View();
+        }
+
+
+        public IActionResult EditProduct(int productId)
+        {
+            onlineShopSWPContext context = new onlineShopSWPContext();
+            CategoryDAO cDao = new CategoryDAO();
+            ProductsDAO pDao = new ProductsDAO();
+            Product product = pDao.GetProductById(productId);
+            ViewData["categories"] = new SelectList(context.Categories, "Id", "Name");
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(Product product, List<IFormFile> postedFiles)
+        {
+            onlineShopSWPContext context = new onlineShopSWPContext();
+
+            string wwwPath = this.Environment.WebRootPath;
+            string contentPath = this.Environment.ContentRootPath;
+
+            string path = Path.Combine(this.Environment.WebRootPath, "Individual/User/Images");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            List<string> uploadedFiles = new List<string>();
+            foreach (IFormFile postedFile in postedFiles)
+            {
+                string fileName = Path.GetFileName(postedFile.FileName);
+                product.Img = fileName;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                    uploadedFiles.Add(fileName);
+                }
+            }
+
+            ProductsDAO pDao = new ProductsDAO();
+            pDao.UpdateProduct(product);
+            Product productNew = pDao.GetProductById(product.ProductId);
+            ViewData["mess"] = "Successfully updated!";
+            ViewData["categories"] = new SelectList(context.Categories, "Id", "Name");
+
+
+
+            return View(productNew);
+        }
+
+        public void ChangeActiveProduct(int pid, string status)
+        {
+            ProductsDAO pDao = new ProductsDAO();
+            Product product = pDao.GetProductById(pid);
+            product.Active = Convert.ToInt32(status);
+            pDao.UpdateProduct(product);
+
+        }
+
+        public void Delete(int productId)
+        {
+            onlineShopSWPContext context = new onlineShopSWPContext();
+            ProductsDAO pDao = new ProductsDAO();
+            Product product = pDao.GetProductById(productId);
+            if (product != null)
+            {
+                context.Products.Remove(product);
+                context.SaveChanges();
+            }
+
         }
     }
 }
