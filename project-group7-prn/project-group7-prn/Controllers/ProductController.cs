@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PagedList;
+using project_group7_prn.DAO.ProductDAO;
 using project_group7_prn.Models;
 using System;
 using System.Collections.Generic;
@@ -17,23 +18,37 @@ namespace project_group7_prn.Controllers
             {
                 ViewBag.Category = db.Categories.ToList();
                 int pageNumber = 1;
-                if(Page != 0)
+                if (Page != 0)
                 {
                     pageNumber = Page;
                 }
                 int pageSize = db.Products.Where(p => p.CategoryId == (Cid == 0 ? p.CategoryId : Cid)).Count();
-                int size = pageSize/6;
-                if (pageSize % 6 != 0)
+                int size = pageSize / 9;
+                if (pageSize % 9 != 0)
                 {
                     size++;
                 }
 
                 ViewBag.Size = size;
-                ViewBag.Product = db.Products.Where(p => p.CategoryId == (Cid == 0?p.CategoryId:Cid)).ToList().ToPagedList(pageNumber, 6);
-                if(Cid != 0){
+                ViewBag.Product = db.Products.Where(p => p.CategoryId == (Cid == 0 ? p.CategoryId : Cid)).ToList().ToPagedList(pageNumber, 9);
+                if (Cid != 0) {
                     ViewBag.Cid = Cid;
                 }
+
+
+                ViewBag.BestSell = db.Products.Find(new DAO.ProductDAO.ProductsDAO().getMaxProduct());
+
+
                 ViewBag.pageNumber = pageNumber;
+
+                List<int> i = new DAO.ProductDAO.ProductsDAO().getTopProduct();
+                List<Product> plist = new List<Product>();
+                foreach (int pid in i)
+                {
+                    plist.Add(db.Products.Find(pid));
+                }
+
+                ViewBag.BestSellTop = plist;
                 return View();
             }
         }
@@ -44,9 +59,21 @@ namespace project_group7_prn.Controllers
                 // se thay bang sesson
                 ViewBag.UserId = 1;
                 ViewBag.Category = db.Categories.ToList();
-                ViewBag.PDetail = db.Products.Find(Pid);
+                Product pdt = db.Products.Find(Pid);
+                ViewBag.PDetail = pdt;
                 ViewBag.FBack = db.Feedbacks.Include(f => f.Product).Include(f => f.User).Where(f => f.ProductId == Pid).ToList().OrderByDescending(fb => fb.FeedbackId).Take(3);
                 ViewBag.countFBack = db.Feedbacks.Where(f => f.ProductId == Pid).Count();
+
+                ViewBag.refer = db.Products.Where(p => p.ProductId != Pid && p.CategoryId == pdt.CategoryId).ToList().OrderByDescending(p => p.CreateDate);
+
+                List<int> i = new DAO.ProductDAO.ProductsDAO().getTopProduct();
+                List<Product> plist = new List<Product>();
+                foreach (int pid in i)
+                {
+                    plist.Add(db.Products.Find(pid));
+                }
+
+                ViewBag.BestSellTop = plist;
             }
                 return View();
         }

@@ -21,6 +21,18 @@ namespace project_group7_prn.Controllers
 
                 ViewBag.BestSell = db.OrderDetails.Select(o => o.ProductId);
                 ViewBag.Category = db.Categories.ToList();
+
+                ViewBag.BestSell = db.Products.Find(new DAO.ProductDAO.ProductsDAO().getMaxProduct());
+
+                List<int> i = new DAO.ProductDAO.ProductsDAO().getTopProduct();
+                List<Product> plist = new List<Product>();
+
+                foreach(int pid in i)
+                {
+                    plist.Add(db.Products.Find(pid));
+                }
+
+                ViewBag.BestSellTop = plist;
                 return View();
             }
         }
