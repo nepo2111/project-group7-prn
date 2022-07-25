@@ -7,7 +7,9 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4" style="display:flex">
         <h1 class="h3 mb-0 text-gray-800"><i class="fa fa-users" aria-hidden="true"></i> Users</h1>
-        <button type="button" class="btn btn-info" style="margin-right:40px;">Add New</button>
+
+        <a asp-controller="Admin" asp-action="AddNewUser" class="btn btn-info" role="button" style="margin-right:40px;">Add New</a>
+
     </div>
 
     <!-- Content Row -->
@@ -19,7 +21,7 @@
                     <thead>
                         <tr>
                             <th>Avatar</th>
-                            <th>UserId</th>
+                    
                             <th>FullName</th>
                             <th>Email</th>
                             <th>Password</th>
@@ -37,7 +39,7 @@
                                                     <td>
                                                         <img src="~/Individual/User/Images/@u.Avatar" style="width:50px; height:auto" />
                                                     </td>
-                                                    <td>@u.UserId</td>
+                                               
                                                     <td>@u.Fullname</td>
                                                     <td>@u.Email</td>
                                                     <td>@u.Password</td>

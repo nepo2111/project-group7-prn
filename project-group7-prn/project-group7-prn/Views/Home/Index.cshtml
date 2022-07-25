@@ -76,56 +76,36 @@
             </div>
         </div>
         <!----->
-
+        @{ Product bestp = ViewBag.BestSell as Product;}
         <div class="content-top-bottom">
             <h2>Best selling products</h2>
-            <div class="col-md-6 men">
+            <div class="col-md-5 men">
                 <a href="single.html" class="b-link-stripe b-animate-go  thickbox">
-                    <img class="img-responsive" src="images/t1.jpg" alt="">
+                    <img class="img-responsive" src="@(bestp.Img)" alt="">
                     <div class="b-wrapper">
                         <h3 class="b-animate b-from-top top-in   b-delay03 ">
-                            <span>Lorem</span>
+                            <span>@(bestp.Category.Name)</span>
                         </h3>
                     </div>
                 </a>
-
-
             </div>
+            @{ List<Product> ptop = ViewBag.BestSellTop as List<Product>;}
             <div class="col-md-6">
-                <div class="col-md1 ">
-                    <a href="single.html" class="b-link-stripe b-animate-go  thickbox">
-                        <img class="img-responsive" src="images/t2.jpg" alt="">
-                        <div class="b-wrapper">
-                            <h3 class="b-animate b-from-top top-in1   b-delay03 ">
-                                <span>Lorem</span>
-                            </h3>
-                        </div>
-                    </a>
-
-                </div>
                 <div class="col-md2">
-                    <div class="col-md-6 men1">
+                    @for (int i = 1; i < ptop.Count; i++)
+                    {
+                    <div class="col-md-5 men1">
                         <a href="single.html" class="b-link-stripe b-animate-go  thickbox">
-                            <img class="img-responsive" src="images/t3.jpg" alt="">
+                            <img class="img-responsive" src="@(ptop[i].Img)" alt="">
                             <div class="b-wrapper">
                                 <h3 class="b-animate b-from-top top-in2   b-delay03 ">
-                                    <span>Lorem</span>
+                                    <span>@(ptop[i].Category.Name)</span>
                                 </h3>
                             </div>
                         </a>
 
                     </div>
-                    <div class="col-md-6 men2">
-                        <a href="single.html" class="b-link-stripe b-animate-go  thickbox">
-                            <img class="img-responsive" src="images/t4.jpg" alt="">
-                            <div class="b-wrapper">
-                                <h3 class="b-animate b-from-top top-in2   b-delay03 ">
-                                    <span>Lorem</span>
-                                </h3>
-                            </div>
-                        </a>
-
-                    </div>
+                    }
                     <div class="clearfix"> </div>
                 </div>
             </div>

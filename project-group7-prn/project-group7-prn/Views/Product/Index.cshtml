@@ -9,6 +9,9 @@
                     <h3 class="cate">Categories</h3>
                 </div>
                 <ul class="menu">
+                    <li class="item1">
+                        <a asp-controller="Product" asp-action="Index" asp-route-Cid="0">All Product</a>
+                    </li>
                     @foreach (Category ct in ViewBag.Category)
                     {
                         <li class="item1">
@@ -31,45 +34,38 @@
                 <div class="of-left-in">
                     <h3 class="best">Best Sellers</h3>
                 </div>
-                <div class="product-go">
-                    <div class=" fashion-grid">
-                        <a href="single.html"><img class="img-responsive " src="images/p1.jpg" alt=""></a>
+                @{ List<Product> ptop = ViewBag.BestSellTop as List<Product>;}
+                @for (int i = 0; i < 2; i++)
+                {
+                    <div class="product-go">
+                        <div class=" fashion-grid">
+                            <a href="single.html"><img class="img-responsive " src="@(ptop[i].Img)" alt=""></a>
 
+                        </div>
+                        <div class=" fashion-grid1">
+                            <h6 class="best2">
+                                <a href="single.html">
+                                    @(ptop[i].Title)
+                                </a>
+                            </h6>
+
+                            <span class=" price-in1">
+                                @if (ptop[i].SalePrice != null)
+                                {
+                                    <span><del style="margin-right: 20px">@(ptop[i].Price)</del></span>
+                                }
+                                else
+                                {
+                                    <span>@(ptop[i].Price)</span>
+                                }
+                            </span>
+                        </div>
+
+                        <div class="clearfix"> </div>
                     </div>
-                    <div class=" fashion-grid1">
-                        <h6 class="best2">
-                            <a href="single.html">
-                                Lorem ipsum dolor sit
-                                amet consectetuer
-                            </a>
-                        </h6>
-
-                        <span class=" price-in1"> $40.00</span>
-                    </div>
-
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="product-go">
-                    <div class=" fashion-grid">
-                        <a href="single.html"><img class="img-responsive " src="images/p2.jpg" alt=""></a>
-
-                    </div>
-                    <div class="fashion-grid1">
-                        <h6 class="best2">
-                            <a href="single.html">
-                                Lorem ipsum dolor sit
-                                amet consectetuer
-                            </a>
-                        </h6>
-
-                        <span class=" price-in1"> $40.00</span>
-                    </div>
-
-                    <div class="clearfix"> </div>
-                </div>
-
+                }
             </div>
-            <div class=" per1">
+            @*<div class=" per1">
                 <a href="single.html">
                     <img class="img-responsive" src="images/pro.jpg" alt="">
                     <div class="six1">
@@ -78,7 +74,7 @@
                         <span>60%</span>
                     </div>
                 </a>
-            </div>
+            </div>*@
         </div>
         <div class="col-md-9 product1">
             <div class=" bottom-product">

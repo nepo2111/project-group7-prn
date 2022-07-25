@@ -164,8 +164,6 @@ namespace project_group7_prn.Models
                     .HasColumnName("phone")
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Status).HasColumnName("status");
-
                 entity.Property(e => e.Total).HasColumnName("total");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
@@ -185,7 +183,7 @@ namespace project_group7_prn.Models
 
                 entity.Property(e => e.AuthorId).HasColumnName("author_id");
 
-                entity.Property(e => e.BrandId).HasColumnName("brand_id");
+          
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
