@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace project_group7_prn.Controllers
 {
@@ -34,7 +35,7 @@ namespace project_group7_prn.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(IFormCollection result, User user)
+        public IActionResult EditUser(IFormCollection result, User user/*, HttpPostedFileBase fileImage*/)
         {
             string gender = result["rdGender"];
             user.Gender = bool.Parse(gender);
