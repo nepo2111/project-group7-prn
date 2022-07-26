@@ -118,6 +118,7 @@ namespace project_group7_prn.Controllers
                     {
                         List<CartDetail> lstCartDetail = cDao.GetCartDetails(cart.CartId);
                         ViewData["cartDetails"] = lstCartDetail;
+                        ViewData["cart"] = cart;
                     }
                     return View();
                 }
