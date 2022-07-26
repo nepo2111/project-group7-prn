@@ -96,9 +96,37 @@ namespace project_group7_prn.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-
-
-
+        public IActionResult CartDetail()
+        {
+            int userId = 0;
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                CartDAO cDao = new CartDAO();
+                userId = Convert.ToInt32(HttpContext.Session.GetString("userID"));
+                if (userId != 0)
+                {
+                    Cart cart = context.Carts.FirstOrDefault(x => x.UserId == userId);
+                    if (cart == null)
+                    {
+                        ViewData["cartDetails"] = null;
+                        ViewData["mess"] = "There are no products in the cart.";
+                    }else
+                    {
+                        List<CartDetail> lstCartDetail = cDao.GetCartDetails(cart.CartId);
+                        ViewData["cartDetails"] = lstCartDetail;
+                    }
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Login));
+                }
+                
+            }
+                
+            
+            
+        }
 
     }
 }
