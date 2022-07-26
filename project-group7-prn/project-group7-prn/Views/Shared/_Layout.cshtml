@@ -1,10 +1,11 @@
-﻿
-<!--A Design by W3layouts
+﻿<!--A Design by W3layouts
 Author: W3layout
 Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,17 +39,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="container">
                 <div class="header-left">
                     <ul>
-                        <li><a href="/Home/Login">Login</a></li>
+                        @{
+                            string userId = HttpContextAccessor.HttpContext.Session.GetString("userID");
+                        }
+
+                        @{
+                            if (userId != "" && userId != null)
+                            {
+                                <li><a href="/Home/Logout">Logout</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Home/Login">Login</a></li>
+                            }
+                        }
+
 
                     </ul>
                     <div class="cart box_1">
-                        <a href="checkout.html">
+                        <a href="/Home/Login">
                             <h3>
-                                
+
                                 <img src="~/template/images/cart.png" alt="" />
                             </h3>
                         </a>
-          
+
 
                     </div>
                     <div class="clearfix"> </div>
@@ -67,19 +82,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <li>
                             <a class="color1" href="/Product/Index">Phone</a>
                             @*<div class="mepanel">
-                                <div class="row">
-                                    <div class="col1">
-                                        <div class="h_nav">
-                                            <ul>
-                                                @foreach (Category ct in ViewBag.Category)
-                                                {
-                                                    <li><a href="products.html">@(ct.Name)</a></li>
-                                                }
-                                            </ul>
+                                    <div class="row">
+                                        <div class="col1">
+                                            <div class="h_nav">
+                                                <ul>
+                                                    @foreach (Category ct in ViewBag.Category)
+                                                    {
+                                                        <li><a href="products.html">@(ct.Name)</a></li>
+                                                    }
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                         </li>
                     </ul>
                 </div>
