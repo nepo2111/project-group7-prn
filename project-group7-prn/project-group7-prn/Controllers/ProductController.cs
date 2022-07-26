@@ -84,7 +84,7 @@ namespace project_group7_prn.Controllers
                 ViewBag.FBack = db.Feedbacks.Include(f => f.Product).Include(f => f.User).Where(f => f.ProductId == Pid).ToList().OrderByDescending(fb => fb.FeedbackId).Take(3);
                 ViewBag.countFBack = db.Feedbacks.Where(f => f.ProductId == Pid).Count();
 
-                ViewBag.refer = db.Products.Where(p => p.ProductId != Pid && p.CategoryId == pdt.CategoryId).ToList().OrderByDescending(p => p.CreateDate);
+                ViewBag.refer = db.Products.Where(p => p.ProductId != Pid && p.CategoryId == pdt.CategoryId).ToList().OrderByDescending(p => p.CreateDate).Take(3);
 
                 List<int> i = new DAO.ProductDAO.ProductsDAO().getTopProduct();
                 List<Product> plist = new List<Product>();

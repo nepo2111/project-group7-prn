@@ -14,7 +14,6 @@
                         </tr>
                     </thead>
                     <tbody id="content-course">
-                        
                     </tbody>
                 </table>
             </div>
@@ -48,29 +47,43 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-9 cart-items" id="detail-none" >
+        <div class="col-md-9 cart-items" id="detail-none">
         </div>
         <div class="col-md-3 cart-total">
-            @foreach(Order o in ViewBag.Order) {
-            <a class="continue" style="cursor: pointer" id="@(o.OrderId)" onclick="ViewDetail(@(o.OrderId))">View Detail</a>
-            <div class="price-details">
-                <h3>Order Date: @(o.OrderDate?.ToString("dd/MM/yyyy"))</h3>
-                <p style="margin-left: 20px; margin-bottom: 5px;">Full name: @(o.Fullname)</p>
-                <p style="margin-left: 20px; margin-bottom: 5px;">Address: @(o.Address)</p>
-                <p style="margin-left: 20px; margin-bottom: 5px;">Phone: @(o.Phone)</p>
-                <div class="clearfix"></div>
-            </div>
-            <ul class="total_price">
-                <li class="last_price"> <h4>Total Price:</h4></li>
-                <li class="last_price"><span style="color:red">@(o.Total)</span></li>
-                <div class="clearfix"> </div>
-            </ul>
+            @foreach (Order o in ViewBag.Order)
+            {
+                <div style="margin-bottom: 10px;">
+                    <a class="continue" style="cursor: pointer" id="@(o.OrderId)" onclick="ViewDetail(@(o.OrderId))">View Detail</a>
+                    <div class="price-details">
+                        <h3>Order Date: @(o.OrderDate?.ToString("dd/MM/yyyy"))</h3>
+                        <p style="margin-left: 20px; margin-bottom: 5px;">Full name: @(o.Fullname)</p>
+                        <p style="margin-left: 20px; margin-bottom: 5px;">Address: @(o.Address)</p>
+                        <p style="margin-left: 20px; margin-bottom: 5px;">Phone: @(o.Phone)</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <ul class="total_price">
+                        <li class="last_price"> <h4>Total Price:</h4></li>
+                        <li class="last_price"><span style="color:red">@(o.Total)</span></li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
             }
             <div class="clearfix"></div>
-            
+
         </div>
 
         <div class="clearfix"> </div>
+
+        <nav class="in">
+            <ul class="pagination">
+                <li><a asp-action="Index" asp-route-Page="@(ViewBag.pageNumber-1==0?1:ViewBag.pageNumber-1)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                @for (int a = 1; a <= (ViewBag.Size); a++)
+                {
+                    <li @(ViewBag.pageNumber == a ? "class=active" : "")><a asp-action="Index" asp-route-Page="@(a)">@(a) <span class="sr-only"></span></a></li>
+                }
+                <li> <a asp-action="Index" asp-route-Page="@(ViewBag.pageNumber+1>ViewBag.Size?ViewBag.Size:ViewBag.pageNumber+1)" aria-label="Next"><span aria-hidden="true">»</span> </a> </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <script>
@@ -89,6 +102,7 @@
                 let ttsale = 0;
                 let tt = 0;
                 var bodyTable = document.getElementById('content-course');
+                bodyTable.innerHTML = "";
                 for (var i = 0; i < orderDetail.length; i++) {
                     bodyTable.innerHTML +=  "   <tr>" +
                                             "       <td> <img style=\"width: 10%;\" src=" + orderDetail[i].img + "> " + orderDetail[i].title + "</td>" +
