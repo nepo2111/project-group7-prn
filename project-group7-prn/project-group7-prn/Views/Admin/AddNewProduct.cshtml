@@ -1,0 +1,161 @@
+﻿@{
+    Layout = "_Layout-Admin";
+}
+@model Product
+@using project_group7_prn.Models;
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="display:flex">
+        <h1 class="h3 mb-0 text-gray-800"><i class="fa fa-users" aria-hidden="true"></i> Add New Product</h1>
+    </div>
+
+    <!-- Content Row -->
+    @if (ViewBag.mess != null)
+    {
+        <div class="alert alert-success" role="alert" style="text-align:center">
+            @ViewBag.mess
+        </div>
+    }
+    <div class="card shadow mb-4">
+
+        <div class="card-body">
+            <form asp-controller="Admin" asp-action="AddNewProduct" id="form-update" enctype="multipart/form-data">
+        
+                <div class="form-group" style="text-align:center">
+
+                    <img src="~/Individual/User/Images/@Model.Img" id="preview" style="width:200px; height:auto;" class="hidden" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input type="text" class="form-control" asp-for="Title" placeholder="Enter Title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Price</label>
+                    <input type="text" class="form-control" asp-for="Price" placeholder="Enter Price" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Sale Price</label>
+                    <input type="text" class="form-control" asp-for="SalePrice" id="exampleInputPassword1" placeholder="Enter Sale Price" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Image</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="file" id="fileImage" name="postedFiles" multiple  required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Stock</label>
+                    <input type="text" class="form-control" asp-for="Stock" id="exampleInputPassword1" placeholder="Enter Stock" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Description</label>
+                    <input type="text" class="form-control" asp-for="Description" id="exampleInputPassword1" placeholder="Enter Description">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Category</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.categories" style="width:300px;"></select>
+                </div>
+
+                <a href="/Admin/Products" class="btn btn-info" role="button">Cancel</a>
+                <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+                
+                <input type="hidden" asp-for="@Model.AuthorId" />
+                <input type="hidden" asp-for="@Model.CreateDate" />
+                <input type="hidden" asp-for="@Model.Active" />
+
+
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+            </div>
+<!-- End of Main Content -->
+        </div>
+<!-- End of Content Wrapper -->
+    </div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Active Modal-->
+<div class="modal fade" id="confirm-change-active" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Active</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="ct"></p>
+                <p>Do you want to proceed?</p>
+                <p class="debug-url"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btn-change">Change</a>
+            </div>
+            <input type="hidden" id="hUid" value="0" />
+            <input type="hidden" id="hStatus" value="" />
+        </div>
+    </div>
+</div>
+
+<!-- Update Modal-->
+<div class="modal fade" id="confirm-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="ct1"></p>
+                <p>Do you want to proceed?</p>
+                <p class="debug-url"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btn-update">Change</a>
+            </div>
+            <input type="hidden" id="hUid" value="0" />
+            <input type="hidden" id="hStatus" value="" />
+        </div>
+    </div>
+</div>
+
+
+
