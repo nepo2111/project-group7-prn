@@ -77,7 +77,14 @@ namespace project_group7_prn.Controllers
             using (var db = new onlineShopSWPContext())
             {
                 // se thay bang sesson
-                ViewBag.UserId = 1;
+                int Uid = 0;
+                if (HttpContext.Session.GetString("userID") != null)
+                {
+                    Uid = int.Parse(HttpContext.Session.GetString("userID"));
+                }
+
+                ViewBag.UserId = Uid;
+
                 ViewBag.Category = db.Categories.ToList();
                 Product pdt = db.Products.Find(Pid);
                 ViewBag.PDetail = pdt;
