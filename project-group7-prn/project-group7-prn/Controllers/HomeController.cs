@@ -63,6 +63,39 @@ namespace project_group7_prn.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult Login(IFormCollection result)
+        {
+            using (var db = new onlineShopSWPContext())
+            {
+                string email = result["mail"];
+                string pass = result["password"];
+                User u = db.Users.FirstOrDefault(x => x.Email.Equals(email) && x.Password.Equals(pass));
+                if (u != null && u.Active==true)
+                {
+                    HttpContext.Session.SetString("userID", u.UserId.ToString());
+                    if (u.Role == 2)
+                    {
+                        return Redirect("/Admin/UserList");
+                    }else
+                    {
+                        return Redirect("/Home/Index");
+                    }
+                    
+                }
+                else
+                    return Redirect("/Home/Login");
+            }
+
+
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.SetString("userID", "");
+            return RedirectToAction(nameof(Login));
+        }
+
 
 
 
