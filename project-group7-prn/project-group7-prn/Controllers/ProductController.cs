@@ -74,11 +74,18 @@ namespace project_group7_prn.Controllers
 
         public IActionResult Detail(int Pid)
         {
+            
             using (var db = new onlineShopSWPContext())
             {
                 // se thay bang sesson
                 int Uid = 0;
+                bool se1 = (HttpContext.Session.GetString("userID")==null?true:false);
+                bool se2 = false;
                 if (HttpContext.Session.GetString("userID") != null)
+                {
+                   se2 = (!HttpContext.Session.GetString("userID").ToString().Equals(""));
+                }
+                if (se1 != false && se2 != false)
                 {
                     Uid = int.Parse(HttpContext.Session.GetString("userID"));
                 }
