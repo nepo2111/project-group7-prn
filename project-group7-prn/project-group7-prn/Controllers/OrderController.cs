@@ -22,6 +22,9 @@ namespace project_group7_prn.Controllers
                 if(HttpContext.Session.GetString("userID") != null)
                 {
                     Uid = int.Parse(HttpContext.Session.GetString("userID"));
+                } else
+                {
+                    return Redirect("/Home/Login");
                 }
                 
                 int pageSize = db.Orders.Where(o => o.UserId == Uid).Count();

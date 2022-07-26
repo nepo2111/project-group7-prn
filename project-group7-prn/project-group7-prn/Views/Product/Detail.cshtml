@@ -1,5 +1,5 @@
-﻿@*@using project_group7_prn.Models
-@inject IHttpContextAccessor Http*@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
 <!--content-->
 <!---->
 <div class="product">
@@ -157,7 +157,7 @@
                         </li>
                     }
                 </ul>
-                @if(HttpContextAccessor.HttpContext.Session.getString("userID")!="" && HttpContextAccessor.HttpContext.Session.getString("userID") != null)
+                @if (HttpContextAccessor.HttpContext.Session.GetString("userID") != "" && HttpContextAccessor.HttpContext.Session.GetString("userID") != null)
                 {
                     <a class="add-re add-hiden" style="cursor: pointer;">ADD REVIEW</a>
                 }
