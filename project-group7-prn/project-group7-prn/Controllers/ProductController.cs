@@ -111,7 +111,7 @@ namespace project_group7_prn.Controllers
                     data += "<li data-content=\"television\" class=\"selected\">\n" +
                          "  <div class=\"comments-top-top\">\n" +
                             "   <div class=\"top-comment-left\">\n" +
-                                "<img class=\"img-responsive\" src=" + fb.User.Avatar + " alt=\"\">\n" +
+                            " <img class=\"img-responsive\" src=\"/Individual/User/Images/"+fb.User.Avatar+"\" alt=\"\">\n" +
                             "   </div>\n" +
                             "   <div class=\"top-comment-right\" style=\"margin-bottom: 10px\">\n" +
                                 "   <h6>" + fb.User.Fullname + " - " + (fb.FeedbackDate?.ToString("dd/MM/yyyy")) + "</h6>\n" +
@@ -157,7 +157,7 @@ namespace project_group7_prn.Controllers
                     data += "<li data-content=\"television\" class=\"selected\">\n" +
                          "  <div class=\"comments-top-top\">\n" +
                             "   <div class=\"top-comment-left\">\n" +
-                                "<img class=\"img-responsive\" src=" + fb.User.Avatar + " alt=\"\">\n" +
+                            " <img class=\"img-responsive\" src=\"/Individual/User/Images/" + fb.User.Avatar + "\" alt=\"\">\n" +
                             "   </div>\n" +
                             "   <div class=\"top-comment-right\" style=\"margin-bottom: 10px\">\n" +
                                 "   <h6>" + fb.User.Fullname + " - " + (fb.FeedbackDate?.ToString("dd/MM/yyyy")) + "</h6>\n" +
@@ -214,7 +214,7 @@ namespace project_group7_prn.Controllers
                     data += "<li data-content=\"television\" class=\"selected\">\n" +
                          "  <div class=\"comments-top-top\">\n" +
                             "   <div class=\"top-comment-left\">\n" +
-                                "<img class=\"img-responsive\" src=" + fb.User.Avatar + " alt=\"\">\n" +
+                            " <img class=\"img-responsive\" src=\"/Individual/User/Images/" + fb.User.Avatar + "\" alt=\"\">\n" +
                             "   </div>\n" +
                             "   <div class=\"top-comment-right\" style=\"margin-bottom: 10px\">\n" +
                                 "   <h6>" + fb.User.Fullname + " - " + (fb.FeedbackDate?.ToString("dd/MM/yyyy")) + "</h6>\n" +
@@ -260,7 +260,7 @@ namespace project_group7_prn.Controllers
                     data += "<li data-content=\"television\" class=\"selected\">\n" +
                          "  <div class=\"comments-top-top\">\n" +
                             "   <div class=\"top-comment-left\">\n" +
-                                "<img class=\"img-responsive\" src=" + fb.User.Avatar + " alt=\"\">\n" +
+                            " <img class=\"img-responsive\" src=\"/Individual/User/Images/" + fb.User.Avatar + "\" alt=\"\">\n" +
                             "   </div>\n" +
                             "   <div class=\"top-comment-right\" style=\"margin-bottom: 10px\">\n" +
                                 "   <h6>" + fb.User.Fullname + " - " + (fb.FeedbackDate?.ToString("dd/MM/yyyy")) + "</h6>\n" +

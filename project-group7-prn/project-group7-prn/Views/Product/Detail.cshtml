@@ -1,4 +1,6 @@
-﻿<!--content-->
+﻿@*@using project_group7_prn.Models
+@inject IHttpContextAccessor Http*@
+<!--content-->
 <!---->
 <div class="product">
     <div class="container">
@@ -21,7 +23,7 @@
                 </ul>
             </div>
             <!--initiate accordion-->
-            
+
             <div class="product-middle">
 
                 <div class="fit-top">
@@ -41,12 +43,12 @@
                 {
                     <div class="product-go">
                         <div class=" fashion-grid">
-                            <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(ptop[i].ProductId)"><img class="img-responsive " src="@(ptop[i].Img)" alt=""></a>
+                            <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(ptop[i].ProductId)"><img class="img-responsive " src="~/Individual/User/Images/@(ptop[i].Img)" alt=""></a>
 
                         </div>
                         <div class=" fashion-grid1">
                             <h6 class="best2">
-                                <a href="single.html">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(ptop[i].ProductId)">
                                     @(ptop[i].Title)
                                 </a>
                             </h6>
@@ -80,128 +82,134 @@
             </div>
         </div>
         @{ Product p = ViewBag.PDetail as Product;}
-    <div class="col-md-9 product-price1">
-        <div class="col-md-5 single-top">
-            <div class="flexslider">
-                <img class="img-responsive" src="@(p.Img)" />
-            </div>
-        </div>
-        <div class="col-md-7 single-top-in simpleCart_shelfItem">
-            <div class="single-para ">
-                <h4>@(p.Title)</h4>
-                <div class="star-on">
-                    <ul class="star-footer">
-                        <li><a href="#"><i> </i></a></li>
-                        <li><a href="#"><i> </i></a></li>
-                        <li><a href="#"><i> </i></a></li>
-                        <li><a href="#"><i> </i></a></li>
-                        <li><a href="#"><i> </i></a></li>
-                    </ul>
-                    <div class="clearfix"> </div>
+        <div class="col-md-9 product-price1">
+            <div class="col-md-5 single-top">
+                <div class="flexslider">
+                    <img class="img-responsive" src="~/Individual/User/Images/@(p.Img)" />
                 </div>
-                @if (p.SalePrice != null)
-                {
-                    <h5 class="item_price"><del style="margin-right: 30px;">@(p.Price)</del><span>@(p.SalePrice)</span></h5>
-                }
-                else
-                {
-                    <h5 class="item_price">@(p.Price)</h5>
-                }
-
-                <p>@(p.Description)</p>
-                <a href="#" class="add-cart item_add">ADD TO CART</a>
-
             </div>
-        </div>
-        <div class="clearfix"> </div>
-        <!---->
-        <div class="cd-tabs">
-            <nav style="margin-top: 55px">
-                <ul class="cd-tabs-navigation">
-                    <li><a data-content="television" href="#0" class="selected ">Reviews @(ViewBag.countFBack)</a></li>
+            <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                <div class="single-para ">
+                    <h4>@(p.Title)</h4>
+                    <div class="star-on">
+                        <ul class="star-footer">
+                            <li><a href="#"><i> </i></a></li>
+                            <li><a href="#"><i> </i></a></li>
+                            <li><a href="#"><i> </i></a></li>
+                            <li><a href="#"><i> </i></a></li>
+                            <li><a href="#"><i> </i></a></li>
+                        </ul>
+                        <div class="clearfix"> </div>
+                    </div>
+                    @if (p.SalePrice != null)
+                    {
+                        <h5 class="item_price"><del style="margin-right: 30px;">@(p.Price)</del><span>@(p.SalePrice)</span></h5>
+                    }
+                    else
+                    {
+                        <h5 class="item_price">@(p.Price)</h5>
+                    }
 
-                </ul>
-            </nav>
-            <ul class="cd-tabs-content" id="feedback">
-                @foreach (Feedback fb in ViewBag.FBack)
-                {
-                    <li data-content="television" class="selected">
-                        <div class="comments-top-top">
-                            <div class="top-comment-left">
-                                <img class="img-responsive" src="@(fb.User.Avatar)" alt="">
-                            </div>
-                            <div class="top-comment-right" style="margin-bottom: 10px">
-                                <h6>@(fb.User.Fullname) - @(fb.FeedbackDate?.ToString("dd/MM/yyyy"))</h6>
-                                <ul class="star-footer">
-                                    @for (int i = 1; i <= fb.Rated; i++)
-                                    {
-                                        <li><i> </i></li>
-                                    }
-                                    @for (int i = (int)fb.Rated + 1; i <= 5; i++)
-                                    {
-                                        @*<li><a href="#"><i> </i></a></li>*@
-                                    }
-                                </ul>
-                                <p>@(fb.FbContent)</p>
-                                @if(ViewBag.UserId == fb.UserId) 
-                                { 
-                                    <div style="text-align: end">
-                                        <a class="text-primary editfb" id="@(fb.FeedbackId)" onclick="EditFeedBack(@(fb.FeedbackId))">Edit</a> / 
-                                        <a class="text-danger deletefb" id="@(fb.FeedbackId)" onclick="DeleteFeedBack(@(fb.FeedbackId),this)">Delete</a>
-                                    </div>
-                                 }
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
-            <a class="add-re add-hiden"style="cursor: pointer;">ADD REVIEW</a>
-            <div style="display: none;" id="addfeedback">
-                <input type="text" name="fbcontent" style="margin-top: 5px; height: 35px; width: 100%; border: none; border-bottom: 1px solid #EF5F21; outline: none; box-shadow: 0 0 5pt 2pt #d6d6d6; border-radius: 4px; padding: 0px 10px; " required/>
-                <label>Rate</label>
-                <input type="radio" value="1" name="rate" required> 1
-                <input type="radio" value="2" name="rate" required> 2
-                <input type="radio" value="3" name="rate" required> 3
-                <input type="radio" value="4" name="rate" required> 4
-                <input type="radio" value="5" name="rate" required> 5
-                <input type="hidden" name="containFbID" value="@(p.ProductId)">
-                <div style="text-align: center;">
-                    <a class="add-re" id="btadd" style="cursor: pointer;">COMMENT</a>
+                    <p>@(p.Description)</p>
+                    <a href="#" class="add-cart item_add">ADD TO CART</a>
+
                 </div>
             </div>
             <div class="clearfix"> </div>
-            <div style="display: flex; justify-content: end;">
-                <div>
-                    <a class="add-re h" style="cursor: pointer;">hide away</a>
-                    <a class="add-re viewmore" id="2" style="cursor: pointer;">View more</a>
-                </div>
-            </div>
-            <div class="clearfix"></div>
+            <!---->
+            <div class="cd-tabs">
+                <nav style="margin-top: 55px">
+                    <ul class="cd-tabs-navigation">
+                        <li><a data-content="television" href="#0" class="selected ">Reviews @(ViewBag.countFBack)</a></li>
 
-        </div>
-            <div class=" bottom-product" style="margin-top: 30px;">
-                @foreach (Product pl in ViewBag.refer) {
-                <div class="col-md-4 bottom-cd simpleCart_shelfItem">
-                    <div class="product-at ">
-                        <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(pl.ProductId)">
-                            <img class="img-responsive" src="@(pl.Img)" alt="">
-                            <div class="pro-grid">
-                                <span class="buy-in">Buy Now</span>
+                    </ul>
+                </nav>
+                <ul class="cd-tabs-content" id="feedback">
+                    @foreach (Feedback fb in ViewBag.FBack)
+                    {
+                        <li data-content="television" class="selected">
+                            <div class="comments-top-top">
+                                <div class="top-comment-left">
+                                    <img class="img-responsive" src="~/Individual/User/Images/@(fb.User.Avatar)" alt="">
+                                </div>
+                                <div class="top-comment-right" style="margin-bottom: 10px">
+                                    <h6>@(fb.User.Fullname) - @(fb.FeedbackDate?.ToString("dd/MM/yyyy"))</h6>
+                                    <ul class="star-footer">
+                                        @for (int i = 1; i <= fb.Rated; i++)
+                                        {
+                                            <li><i> </i></li>
+                                        }
+                                        @for (int i = (int)fb.Rated + 1; i <= 5; i++)
+                                        {
+                                            @*<li><a href="#"><i> </i></a></li>*@
+                                        }
+                                    </ul>
+                                    <p>@(fb.FbContent)</p>
+                                    @if (ViewBag.UserId == fb.UserId)
+                                    {
+                                        <div style="text-align: end">
+                                            <a class="text-primary editfb" id="@(fb.FeedbackId)" onclick="EditFeedBack(@(fb.FeedbackId))">Edit</a> /
+                                            <a class="text-danger deletefb" id="@(fb.FeedbackId)" onclick="DeleteFeedBack(@(fb.FeedbackId),this)">Delete</a>
+                                        </div>
+                                    }
+                                </div>
                             </div>
+                        </li>
+                    }
+                </ul>
+                @if(HttpContextAccessor.HttpContext.Session.getString("userID")!="" && HttpContextAccessor.HttpContext.Session.getString("userID") != null)
+                {
+                    <a class="add-re add-hiden" style="cursor: pointer;">ADD REVIEW</a>
+                }
+                <div style="display: none;" id="addfeedback">
+                    <input type="text" name="fbcontent" style="margin-top: 5px; height: 35px; width: 100%; border: none; border-bottom: 1px solid #EF5F21; outline: none; box-shadow: 0 0 5pt 2pt #d6d6d6; border-radius: 4px; padding: 0px 10px; " required />
+                    <label>Rate</label>
+                    <input type="radio" value="1" name="rate" required> 1
+                    <input type="radio" value="2" name="rate" required> 2
+                    <input type="radio" value="3" name="rate" required> 3
+                    <input type="radio" value="4" name="rate" required> 4
+                    <input type="radio" value="5" name="rate" required> 5
+                    <input type="hidden" name="containFbID" value="@(p.ProductId)">
+                    <div style="text-align: center;">
+                        <a class="add-re" id="btadd" style="cursor: pointer;">COMMENT</a>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+                <div style="display: flex; justify-content: end;">
+                    <div>
+                        <a class="add-re h" style="cursor: pointer;">hide away</a>
+                        <a class="add-re viewmore" id="2" style="cursor: pointer;">View more</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+            <div class=" bottom-product" style="margin-top: 30px;">
+                @foreach (Product pl in ViewBag.refer)
+                {
+                    <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                        <div class="product-at ">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(pl.ProductId)">
+                                <img class="img-responsive" src="~/Individual/User/Images/@(pl.Img)" alt="">
+                                <div class="pro-grid">
+                                    <span class="buy-in">Buy Now</span>
+                                </div>
+                            </a>
+                        </div>
+                        <p class="tun">@(pl.Title)</p>
+                        <a href="#" class="item_add">
+                            <p class="number item_price">
+                                <i> </i>@if (pl.SalePrice != null)
+                                {
+                                    <del style="margin-right: 20px">@(pl.Price)</del><span>@(pl.SalePrice)</span>
+                                }
+                                else
+                                {
+                                    <span>@(pl.Price)</span>
+                                }
+                            </p>
                         </a>
                     </div>
-                    <p class="tun">@(pl.Title)</p>
-                    <a href="#" class="item_add"><p class="number item_price">
-                        <i> </i>@if (pl.SalePrice != null)
-                        {
-                            <del style="margin-right: 20px">@(pl.Price)</del><span>@(pl.SalePrice)</span>
-                        }
-                        else
-                        {
-                            <span>@(pl.Price)</span>
-                        }
-                    </p></a>
-                </div>
                 }
                 <div class="clearfix"> </div>
             </div>

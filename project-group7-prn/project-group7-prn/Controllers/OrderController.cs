@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PagedList;
 using project_group7_prn.Models;
@@ -17,9 +18,13 @@ namespace project_group7_prn.Controllers
             {
                 if (page == 0) page = 1;
                 //suawr
-                int Uid = 1;
-
-                int pageSize = db.Orders.Where(o => o.UserId == (Uid == 0 ? o.UserId : Uid)).Count();
+                int Uid = 0;
+                if(HttpContext.Session.GetString("userID") != null)
+                {
+                    Uid = int.Parse(HttpContext.Session.GetString("userID"));
+                }
+                
+                int pageSize = db.Orders.Where(o => o.UserId == Uid).Count();
 
                 int size = pageSize / 3;
                 if (pageSize % 3 != 0)
@@ -28,8 +33,7 @@ namespace project_group7_prn.Controllers
                 }
 
                 ViewBag.Size = size;
-                ViewBag.Order = db.Orders.Where(o => o.UserId == (Uid == 0 ? o.UserId : Uid)).ToList().ToPagedList(page, 3);
-                //ViewBag.Order = db.Orders.Where(o => o.UserId == (Uid == 0 ? o.UserId : Uid)).ToList().Take(3);
+                ViewBag.Order = db.Orders.Where(o => o.UserId ==  Uid).ToList().ToPagedList(page, 3);
                 ViewBag.pageNumber = page;
             }
             return View();

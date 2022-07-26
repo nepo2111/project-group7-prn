@@ -18,46 +18,27 @@
                 <li>
 
                     <div class="banner-text">
-<<<<<<< HEAD
                         <h3>Lorem Ipsum is not simply dummy  </h3>
                         <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
                         <a asp-action="Index" asp-controller="Product">View More</a>
-=======
-                        <h3>Save $150 and double your memory for free  </h3>
-                        <p>Replace your cracked screen or lagging battery with a brand-new phone .</p>
-                        <a href="single.html">Learn More</a>
->>>>>>> b3f8e3d77837c993a2393d4f7b40239990286796
                     </div>
 
                 </li>
                 <li>
 
                     <div class="banner-text">
-<<<<<<< HEAD
                         <h3>There are many variations </h3>
                         <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
                         <a asp-action="Index" asp-controller="Product">View More</a>
-=======
-                        <h3>Save up to $50 </h3>
-                        <p>The versatile, customizable Galaxy Watch 4, our pick for best smartwatch for Android users .</p>
-                        <a href="single.html">Learn More</a>
->>>>>>> b3f8e3d77837c993a2393d4f7b40239990286796
 
                     </div>
 
                 </li>
                 <li>
                     <div class="banner-text">
-<<<<<<< HEAD
                         <h3>Sed ut perspiciatis unde omnis</h3>
                         <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
                         <a asp-action="Index" asp-controller="Product">View More</a>
-=======
-                        <h3>Get a $100 credit and a free pair of Galaxy Buds Pro</h3>
-                        <p>The Galaxy Tab S8 Ultra is an excellent big-screen tablet, and since it’s usually a big-ticket purchase, it’s well worth considering with these promos .</p>
-                        <a href="single.html">Learn More</a>
->>>>>>> b3f8e3d77837c993a2393d4f7b40239990286796
-
                     </div>
 
                 </li>
@@ -77,7 +58,7 @@
                 {
                     <div class="col-md-4 grid-top">
                         <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(p.ProductId)" class="b-link-stripe b-animate-go  thickbox">
-                            <img class="img-responsive" src="@(p.Img)" alt="">
+                            <img class="img-responsive" src="~/Individual/User/Images/@(p.Img)" alt="">
                             <div class="b-wrapper">
                                 <h3 class="b-animate b-from-left    b-delay03 ">
                                     <span>@(p.Category.Name)</span>
@@ -99,7 +80,7 @@
             <h2>Best selling products</h2>
             <div class="col-md-5 men">
                 <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(bestp.ProductId)" class="b-link-stripe b-animate-go  thickbox">
-                    <img class="img-responsive" src="@(bestp.Img)" alt="">
+                    <img class="img-responsive" src="~/Individual/User/Images/@(bestp.Img)" alt="">
                     <div class="b-wrapper">
                         <h3 class="b-animate b-from-top top-in   b-delay03 ">
                             <span>@(bestp.Category.Name)</span>
@@ -114,7 +95,7 @@
                     {
                     <div class="col-md-5 men1">
                         <a asp-controller="Product" asp-action="Detail" asp-route-Pid="@(ptop[i].ProductId)" class="b-link-stripe b-animate-go  thickbox">
-                            <img class="img-responsive" src="@(ptop[i].Img)" alt="">
+                            <img class="img-responsive" src="~/Individual/User/Images/@(ptop[i].Img)" alt="">
                             <div class="b-wrapper">
                                 <h3 class="b-animate b-from-top top-in2   b-delay03 ">
                                     <span>@(ptop[i].Category.Name)</span>
