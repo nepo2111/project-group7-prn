@@ -74,10 +74,24 @@ namespace project_group7_prn.Controllers
 
         public IActionResult Detail(int Pid)
         {
+            
             using (var db = new onlineShopSWPContext())
             {
                 // se thay bang sesson
-                ViewBag.UserId = 1;
+                int Uid = 0;
+                bool se1 = (HttpContext.Session.GetString("userID")==null?true:false);
+                bool se2 = false;
+                if (HttpContext.Session.GetString("userID") != null)
+                {
+                   se2 = (!HttpContext.Session.GetString("userID").ToString().Equals(""));
+                }
+                if (se1 != false && se2 != false)
+                {
+                    Uid = int.Parse(HttpContext.Session.GetString("userID"));
+                }
+
+                ViewBag.UserId = Uid;
+
                 ViewBag.Category = db.Categories.ToList();
                 Product pdt = db.Products.Find(Pid);
                 ViewBag.PDetail = pdt;

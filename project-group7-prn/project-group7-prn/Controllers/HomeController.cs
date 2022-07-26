@@ -102,7 +102,11 @@ namespace project_group7_prn.Controllers
             using (onlineShopSWPContext context = new onlineShopSWPContext())
             {
                 CartDAO cDao = new CartDAO();
-                userId = Convert.ToInt32(HttpContext.Session.GetString("userID"));
+                if (HttpContext.Session.GetString("userID") != null && HttpContext.Session.GetString("userID") != "")
+                {
+                    userId = Convert.ToInt32(HttpContext.Session.GetString("userID"));
+                }
+              
                 if (userId != 0)
                 {
                     Cart cart = context.Carts.FirstOrDefault(x => x.UserId == userId);
