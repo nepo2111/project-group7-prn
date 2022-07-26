@@ -105,7 +105,7 @@
                 bodyTable.innerHTML = "";
                 for (var i = 0; i < orderDetail.length; i++) {
                     bodyTable.innerHTML +=  "   <tr>" +
-                                            "       <td> <img style=\"width: 10%;\" src=" + orderDetail[i].img + "> " + orderDetail[i].title + "</td>" +
+                        "       <td> <img style=\"width: 10%;\" src=\"/Individual/User/Images/" + orderDetail[i].img + "\"> " + orderDetail[i].title + "</td>" +
                                             "       <td>" + orderDetail[i].quantity +"</td>" +
                                             "       <td style=\"color: red;\">" + orderDetail[i].price + "</td>" +
                                             "       <td style=\"color: red;\">" + (orderDetail[i].price - orderDetail[i].salePrice) + "</td>" +

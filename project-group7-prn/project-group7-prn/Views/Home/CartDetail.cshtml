@@ -4,7 +4,7 @@
 @using project_group7_prn.Models;
 @model CartDetail
 
-    <form asp-controller="Home" asp-action="addOrder">
+    
         <div class="container">
             @{
                 List<CartDetail> lst = ViewBag.cartDetails;
@@ -22,72 +22,76 @@
             else
             {
 
-                <div class="check">
-                    <h1>My Shopping Bag (@lst.Count)</h1>
-                    <div class="col-md-9 cart-items">
+        <div class="check">
+            <h1>My Shopping Bag (@lst.Count)</h1>
+            <div class="col-md-9 cart-items">
 
-                        <script>
-                            $(document).ready(function (c) {
-                                $('.close1').on('click', function (c) {
-                                    $('.cart-header').fadeOut('slow', function (c) {
-                                        $('.cart-header').remove();
-                                    });
-                                });
+                <script>
+                    $(document).ready(function (c) {
+                        $('.close1').on('click', function (c) {
+                            $('.cart-header').fadeOut('slow', function (c) {
+                                $('.cart-header').remove();
                             });
-                        </script>
-                        @{
-                            onlineShopSWPContext context = new onlineShopSWPContext();
-                            foreach (CartDetail c in ViewBag.cartDetails)
-                            {
-                                Product p = context.Products.FirstOrDefault(x => x.ProductId == c.ProductId);
+                        });
+                    });
+                </script>
+                @{
+                    onlineShopSWPContext context = new onlineShopSWPContext();
+                    foreach (CartDetail c in ViewBag.cartDetails)
+                    {
+                        Product p = context.Products.FirstOrDefault(x => x.ProductId == c.ProductId);
 
 
 
-                                <div class="cart-sec simpleCart_shelfItem">
-                                    <div class="cart-item cyc">
-                                        <img src="~/Individual/User/Images/@p.Img" class="img-responsive" alt="" />
-                                    </div>
-                                    <div class="cart-item-info">
-                                        <h3><a href="">@p.Title</a><span>ID : @p.ProductId</span></h3>
-                                        <ul class="qty">
+                        <div class="cart-sec simpleCart_shelfItem">
+                            <div class="cart-item cyc">
+                                <img src="~/Individual/User/Images/@p.Img" class="img-responsive" alt="" />
+                            </div>
+                            <div class="cart-item-info">
+                                <h3><a href="">@p.Title</a><span>ID : @p.ProductId</span></h3>
+                                <ul class="qty">
 
-                                            <li><p>Qty : <input type="number" name="txtNumber" value="@c.Quantity" /></p></li>
-                                            
-                                        </ul>
-                                    </div>
+                                    <li><p>Qty : <input type="number" name="txtNumber" value="@c.Quantity" /></p></li>
 
-                                    <div class="clearfix"></div>
-                                </div>
+                                </ul>
+                            </div>
 
-
-                            }
-                        }
-                        <input type="hidden" name="txtCartId" value="@ViewBag.cart.CartId"/>
-
-
-                    </div>
-                    <div class="col-md-3 cart-total">
-                        <div class="price-details">
-                            <h3>Price Details</h3>
-                            <span>Total</span>
-                            <span class="total1">@ViewBag.cart.TotalPrice</span>
-                            <span>Discount</span>
-                            <span class="total1">---</span>
+                            <div class="clearfix"></div>
                         </div>
-                        <ul class="total_price">
-                            <li class="last_price"> <h4>TOTAL</h4></li>
-                            <li class="last_price"><span>@ViewBag.cart.TotalPrice</span></li>
-                            <div class="clearfix"> </div>
-                            <a class="continue" href="/Home/CartContact">Submit</a>
-                        </ul>
 
 
+                    }
+                }
 
+                
+
+
+            </div>
+            <form asp-controller="Home" asp-action="addOrder">
+                <div class="col-md-3 cart-total">
+                    <div class="price-details">
+                        <h3>Price Details</h3>
+                        <span>Total</span>
+                        <span class="total1">@ViewBag.cart.TotalPrice</span>
+                        <span>Discount</span>
+                        <span class="total1">---</span>
                     </div>
+                    <ul class="total_price">
+                        <li class="last_price"> <h4>TOTAL</h4></li>
+                        <li class="last_price"><span>@ViewBag.cart.TotalPrice</span></li>
+                        <div class="clearfix"> </div>
+  
+                        <button type="submit" >Submit</button>
+                    </ul>
 
-                    <div class="clearfix"> </div>
+                    <input type="hidden" name="txtCartId" value="@ViewBag.cart.CartId" />
+
                 </div>
+            </form>
+
+                <div class="clearfix"> </div>
+        </div>
             }
 
         </div>
-    </form>
+    

@@ -133,5 +133,43 @@ namespace project_group7_prn.Controllers
             
         }
 
+
+        public IActionResult addOrder(IFormCollection value)
+        {
+            using (onlineShopSWPContext context = new onlineShopSWPContext())
+            {
+                //int cartId = int.Parse(value["txtCartId"]);
+                Cart cart = new Cart() { CartId = int.Parse(value["txtCartId"]) };
+                List<CartDetail> lstDetail = context.CartDetails.Where(x => x.CartId == cart.CartId).ToList<CartDetail>();
+                foreach(CartDetail c in lstDetail)
+                {
+                    context.CartDetails.Remove(c);
+                    
+                }
+                context.Carts.Remove(cart);
+                context.SaveChanges();
+
+                //int userId = Convert.ToInt32(HttpContext.Session.GetString("userID"));
+                //User user = context.Users.FirstOrDefault(u => u.UserId == userId);
+                //Order order = new Order
+                //{
+                //    UserId = user.UserId,
+                //    Fullname = user.Fullname,
+                //    Address = user.Address,
+                //    Phone = user.Phone,
+                //    OrderDate = DateTime.Now.Date,
+                //    Total = 0,
+                //    Active = true,
+                //    Notes = ""
+                //};
+                //context.Orders.Add(order);
+                //context.SaveChanges();
+
+                //OrderLast = context.
+
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
     }
 }

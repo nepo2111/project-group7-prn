@@ -182,4 +182,3 @@ C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project
 C:\Users\FPTSHOP\OneDrive\Desktop\PRN211_Project\project-group7-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Admin\AddNewProduct.cshtml.g.cs
 C:\Users\FPTSHOP\OneDrive\Desktop\PRN211_Project\project-group7-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\project-group7-prn.csproj.AssemblyReference.cache
 C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\Razor\Views\Home\CartDetail.cshtml.g.cs
-C:\Users\ASUS\OneDrive\Documents\Computer\project-prn\project-group7-prn\project-group7-prn\obj\Debug\net5.0\project-group7-prn.csproj.AssemblyReference.cache
